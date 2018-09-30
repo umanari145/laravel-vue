@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/{any}', function () {
-    return view('app');
-})->where('any', '.*');
+Route::get('address', 'AddressController@index')->name('address@index');
+
+
+Route::get('getPref', "Api\AreaController@getPref")->name('getPref');

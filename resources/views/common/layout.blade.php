@@ -7,12 +7,12 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Laravel</title>
         <link rel="stylesheet" href="{{ asset('css/app.css') }}"></script>
+        <script src="{{ asset('js/app.js') }}"></script>
+        @yield('styleSheet')
+        @yield('JS')
     </head>
     <body>
-        <div class="hoge">
-            <example id="app"></example>
-            <sample id="test"></sample>
-        </div>
+        @yield('content')
     </body>
-    <script src="{{ asset('js/app.js') }}"></script>
+
 </html>
