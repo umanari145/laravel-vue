@@ -10,6 +10,10 @@ class AddressController extends Controller
 {
     public function index(Request $request)
     {
+        if ($request->isMethod('post')) {
+            dd($request);
+        }
+
         return view(
             'address.index',
              []

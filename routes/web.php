@@ -10,7 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('address', 'AddressController@index')->name('address@index');
+Route::match(['get', 'post'], 'address', 'AddressController@index')->name('address@index');
 
 
 Route::get('getPref', "Api\AreaController@getPref")->name('getPref');
+Route::get('getCity', "Api\AreaController@getCity")->name('getCity');
+Route::get('getTown', "Api\AreaController@getTown")->name('getTown');

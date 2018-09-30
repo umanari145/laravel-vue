@@ -9,6 +9,8 @@
 
 @section('content')
 <div id="app" v-cloak>
+    <input type="hidden" id="site_url" value={{env('APP_URL')}}>
     @include('address.sub.pref')
+    </form>
 </div>
 @endsection
