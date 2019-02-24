@@ -7,6 +7,7 @@
 require('./bootstrap')
 
 import Vue from 'vue'
-
-window.Vue = Vue
+//const Vue = require('vue')
+//windowオブジェクト内でセットしないとpublicのjsで使えない
+window.Vue = Vue;
 window.Sugar = require('Sugar')
