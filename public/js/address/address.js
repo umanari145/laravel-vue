@@ -1,6 +1,9 @@
 $(function(){
 
-    prefUrl = '/laravel-vue/getPref'
+    var siteUrl = $('#site_url').val()
+    prefUrl = siteUrl + 'getPref'
+    cityUrl = siteUrl + 'getCity'
+    townUrl = siteUrl + 'getTown'
 
 	var app = new Vue({
 		el : '#app',
@@ -21,8 +24,8 @@ $(function(){
 			checkPref: function(){
 				var selectedPref = Sugar.String(this.selectedPref)
 				if (!selectedPref.isBlank().raw ){
-					citylink2 = citylink + selectedPref.raw
-					axios.get(citylink2).then(response => {
+					cityUrl2 = cityUrl + '?pref_cd='+ selectedPref.raw
+					axios.get(cityUrl2).then(response => {
 						this.cities = response.data;
 						this.isshowpref = 0
 						this.isshowcity = 1
@@ -32,10 +35,9 @@ $(function(){
 			checkTown : function(){
 				if (this.selectedCities.length >0){
 					var cityStr = this.selectedCities.join(",")
-					townlink2 = townlink + this.selectedPref + '&city=' + cityStr
-					axios.get(townlink2).then(response => {
-						townsRes = response.data;
-						this.groupCities = Sugar.Array(townsRes).groupBy('city').raw
+					townUrl2 = townUrl + '?pref_cd=' + this.selectedPref + '&city_cd=' + cityStr
+					axios.get(townUrl2).then(response => {
+						this.groupCities = response.data;
 						this.isshowcity = 0
 						this.isshowtown = 1
 					});
