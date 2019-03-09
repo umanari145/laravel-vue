@@ -13,7 +13,6 @@ class AddressController extends Controller
         if ($request->isMethod('post')) {
             dd($request);
         }
-
         return view(
             'address.index',
              []

@@ -10,6 +10,7 @@
         @yield('styleSheet')
     </head>
     <body>
+        <input type="hidden" id="entry_url" value="{{env('APP_URL')}}">
         @yield('content')
         <script src="{{ asset('js/app.js') }}"></script>
         @yield('JS')
