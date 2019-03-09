@@ -1,3 +1,4 @@
+<button id='sample_btn'>サンプルボタン</button>
 <!--都道府県-->
 @{{selectedPref}}
 <div v-show="isshowpref">

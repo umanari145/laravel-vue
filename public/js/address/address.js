@@ -1,9 +1,9 @@
 $(function(){
 
     var siteUrl = $('#site_url').val()
-    prefUrl = siteUrl + 'getPref'
-    cityUrl = siteUrl + 'getCity'
-    townUrl = siteUrl + 'getTown'
+    let prefUrl = siteUrl + 'getPref'
+    let cityUrl = siteUrl + 'getCity'
+    let townUrl = siteUrl + 'getTown'
 
 	var app = new Vue({
 		el : '#app',
