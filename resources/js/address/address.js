@@ -27,6 +27,7 @@ export default {
   created:function(){
       //exportの外だとまだ$が使えるようになっていない
       //DOMが表示されていないから？なのでここでurlを定義
+      //vueのDOMはまだ表示されていない
       let entryUrl = $('#entry_url').val()
       this.prefUrl = entryUrl + 'getPref'
       this.cityUrl = entryUrl + 'getCity'
@@ -34,6 +35,12 @@ export default {
       axios.get(this.prefUrl).then(response => {
           this.prefs = response.data;
       });
+  },
+  mounted: function() {
+      //vueのDOMは構築済み
+      $('#sample_btn').click(()=>{
+          alert('aaaa')
+      })
   },
   data(){
     return {
