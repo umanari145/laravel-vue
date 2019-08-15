@@ -6,14 +6,15 @@
  */
 require('./bootstrap')
 import Vue from 'vue'
-//const Vue = require('vue')
-import checkPref from './components/CheckPref.vue'
 
-//windowオブジェクト内でセットしないとpublicのjsで使えない
+import router from './router.js'
+
 window.Vue = Vue;
 window.Sugar = require('Sugar')
-Vue.component('pref-component', checkPref)
+window.$ = window.jQuery = $;
+window.axios = axios
 
 new Vue({
-    el:'#app'
+    el:'#app',
+    router
 })
