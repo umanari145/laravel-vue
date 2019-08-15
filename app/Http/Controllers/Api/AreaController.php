@@ -11,14 +11,14 @@ class AreaController extends Controller
     public function getPref(Request $request)
     {
         $prefList = Mjuusho::getPrefList();
-        return response()->json($prefList);
+        return response()->json($prefList, 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     public function getCity(Request $request)
     {
         $prefCd = $request->input('pref_cd');
         $cityList = Mjuusho::getCityList($prefCd);
-        return response()->json($cityList);
+        return response()->json($cityList, 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     public function getTown(Request $request)
@@ -27,6 +27,6 @@ class AreaController extends Controller
         $cityCdStr = $request->input('city_cd');
         $cityCds = explode(",", $cityCdStr);
         $townList = Mjuusho::getTownList($prefCd, $cityCds);
-        return response()->json($townList);
+        return response()->json($townList, 200, [], JSON_UNESCAPED_UNICODE);
     }
 }
