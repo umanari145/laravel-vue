@@ -13,10 +13,13 @@ npm run watch-pollで自動反映+ブラウザ読み込み
 http://laravel-vue.local/以下は全対象になる
 
 ## デバッグ
+
 bladeとvueを共存させる場合
+
 bladeのなかでvue変数を展開する場合は@{{city}}などと@をつける
 {{prefs| json}}としてあげれば画面に表示させることができる
-=======
+
+
 県→市区町村→字
 
 コンポーネント化せずに素のJSにかく
