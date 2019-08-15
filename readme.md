@@ -10,6 +10,7 @@ laravel-vue.localを登録した場合
 県→市区町村→字の展開
 
 npm run watch-pollで自動反映+ブラウザ読み込み
+
 http://laravel-vue.local/以下は全対象になる
 
 ## デバッグ
