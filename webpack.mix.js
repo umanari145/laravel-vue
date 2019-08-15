@@ -15,9 +15,9 @@ mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css')
    .sourceMaps('true')
    .browserSync({
-    host:'localhost/laravel-vue',
+    host:'laravel-vue.local',
     proxy: {
-        target:"http://localhost/laravel-vue",
+        target:"http://laravel-vue.local",
         ws: true
     }
   });

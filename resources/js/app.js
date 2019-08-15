@@ -9,5 +9,17 @@ require('./bootstrap')
 import Vue from 'vue'
 //const Vue = require('vue')
 //windowオブジェクト内でセットしないとpublicのjsで使えない
+//
+import router from './router.js'
+
 window.Vue = Vue;
 window.Sugar = require('Sugar')
+
+window.$ = window.jQuery = $;
+window.axios = axios
+
+
+new Vue({
+    el:'#app',
+    router
+})
