@@ -11,6 +11,8 @@
 |
 */
 Route::match(['get', 'post'], '', 'TopController@index')->name('top@index');
+Route::match(['get','post'], 'regist', 'TopController@index')->name('top@index');
+
 
 Route::group(['prefix' => 'api'], function () {
 
