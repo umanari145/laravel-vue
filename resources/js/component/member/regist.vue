@@ -14,7 +14,13 @@
                     性別
                 </span>
                 <span>
-                    <MasterLists :member="sex" :kvlists="master_list.sex" hash_key="sex"></MasterLists>
+                    <MasterLists
+                      type="radio"
+                     v-on:child-event="parentMethod"
+                     :member="sex"
+                     :kvlists="master_list.sex"
+                     hash_key="sex">
+                   </MasterLists>
                 </span>
             </li>
             <li>
@@ -22,7 +28,12 @@
                     職業
                 </span>
                 <span>
-                    <input type="text" v-model="member.person_name">
+                    <MasterLists
+                        type="select"
+                        :member="occupation"
+                        :kvlists="master_list.occupation"
+                        hash_key="occupation">
+                    </MasterLists>
                 </span>
             </li>
             <li>
@@ -102,6 +113,9 @@ export default {
   },
   methods:{
     registMember() {
+    },
+    parentMethod(value) {
+
     }
   },
   created(){
@@ -110,8 +124,10 @@ export default {
   data(){
 
     let sex_list = {"1":"男", "2":"女"}
+    let occupation_list = {"1":"学生", "2":"会社員", "3":"自営業・経営者", "4":"その他"}
     let master_list = {
-        "sex":sex_list
+        "sex":sex_list,
+        "occupation":occupation_list
     }
 
     return {
