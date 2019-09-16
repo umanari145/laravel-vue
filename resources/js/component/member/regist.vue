@@ -16,8 +16,7 @@
                 <span>
                     <MasterLists
                       type="radio"
-                     v-on:child-event="parentMethod"
-                     :member="sex"
+                      @child-event="parentMethod"
                      :kvlists="master_list.sex"
                      hash_key="sex">
                    </MasterLists>
@@ -30,7 +29,7 @@
                 <span>
                     <MasterLists
                         type="select"
-                        :member="occupation"
+                        @child-event="parentMethod"
                         :kvlists="master_list.occupation"
                         hash_key="occupation">
                     </MasterLists>
@@ -88,9 +87,15 @@
                 <span>
                     交通手段
                 </span>
-                <span>
-                    <input type="text" v-model="member.person_name">
-                </span>
+                <span v-for="(label_str, value_str) in master_list.traffic">
+                    <input
+                        type="checkbox"
+                        :id=" 'traffic_' + value_str "
+                        :value="value_str"
+                        v-model="member.traffic"
+                    >
+                    <label :for=" 'traffic_' +  value_str">{{label_str}}</label>
+                </span>
             </li>
             <li>
                 <span>
@@ -113,9 +118,10 @@ export default {
   },
   methods:{
     registMember() {
-    },
-    parentMethod(value) {
 
+    },
+    parentMethod({type, hash_key, value}) {
+        this.member[hash_key] = value
     }
   },
   created(){
@@ -125,16 +131,21 @@ export default {
 
     let sex_list = {"1":"男", "2":"女"}
     let occupation_list = {"1":"学生", "2":"会社員", "3":"自営業・経営者", "4":"その他"}
+    let traffic_list = {"1":"徒歩", "2":"自転車", "3":"バス", "4":"電車", "5":"その他"}
     let master_list = {
         "sex":sex_list,
-        "occupation":occupation_list
+        "occupation":occupation_list,
+        "traffic":traffic_list
     }
 
     return {
         master_list:master_list,
         member:{
             "sex":'',
-            "person_name":''
+            "person_name":'',
+            "occupation":'',
+            "value2":'',
+            "traffic":[]
         }
     }
   }
