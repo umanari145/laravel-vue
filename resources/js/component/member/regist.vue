@@ -40,7 +40,7 @@
                     誕生日
                 </span>
                 <span>
-                    <input type="text" v-model="member.person_name">
+                    <input type="text" v-model="member.birtdh_day">
                 </span>
             </li>
             <li>
@@ -48,7 +48,7 @@
                     郵便番号
                 </span>
                 <span>
-                    <input type="text" v-model="member.person_name">
+                    <input type="text" v-model="member.zip">
                 </span>
             </li>
             <li>
@@ -56,7 +56,7 @@
                     住所1
                 </span>
                 <span>
-                    <input type="text" v-model="member.person_name">
+                    <input type="text" v-model="member.address1">
                 </span>
             </li>
             <li>
@@ -64,7 +64,7 @@
                     住所2
                 </span>
                 <span>
-                    <input type="text" v-model="member.person_name">
+                    <input type="text" v-model="member.address2">
                 </span>
             </li>
             <li>
@@ -72,7 +72,7 @@
                     メールアドレス
                 </span>
                 <span>
-                    <input type="text" v-model="member.person_name">
+                    <input type="text" v-model="member.email">
                 </span>
             </li>
             <li>
@@ -80,7 +80,7 @@
                     電話番号
                 </span>
                 <span>
-                    <input type="text" v-model="member.person_name">
+                    <input type="text" v-model="member.tel">
                 </span>
             </li>
             <li>
@@ -102,7 +102,7 @@
                     備考
                 </span>
                 <span>
-                    <input type="text" v-model="member.person_name">
+                    <textarea v-model="member.contents"></textarea>
                 </span>
             </li>
         </ul>
