@@ -1,5 +1,8 @@
 <template>
     <div>
+        <div v-show="is_loading == 1">
+            <loading></loading>
+        </div>
         <ul>
             <li v-for="(member,index) in members">
                 <span>{{member.id}}</span>
@@ -12,28 +15,44 @@
                 </span>
             </li>
         </ul>
+        <div @click="$modal.show('searchModal')">検索</div>
+        <searchModal></searchModal>
     </div>
 </template>
 <script>
 import Sugar from 'Sugar';
+import loading from '../../util/loading'
+import searchModal from '../../util/searchModal'
+
 export default {
   name: 'App',
+  components:{
+      loading,
+      searchModal
+  },
   methods:{
     registMember() {
+
+    },
+    async getMembers() {
+        let link = '/api/persons/'
+        return await axios.get(link);
     }
   },
   created(){
-      let link = '/api/persons/'
-      axios.get(link).then(response => {
+      this.is_loading = 1
+      this.getMembers().then(response => {
           this.members = response.data;
-
           console.log(this.members)
-      }, function(error){
-          console.log(error.statusText);
-      });
+          this.is_loading = 0
+      }, error => {
+          this.is_loading = 0
+          alert('データ取得に失敗しました。')
+      })
   },
   data(){
     return {
+        is_loading:1,
         members:this.members
     }
   }

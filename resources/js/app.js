@@ -6,13 +6,20 @@
  */
 require('./bootstrap')
 import Vue from 'vue'
-
 import router from './router.js'
+
+//vue-modal
+import VModal from 'vue-js-modal'
+Vue.use(VModal)
+
+import store from './store/index.js';
 
 window.Vue = Vue;
 window.Sugar = require('Sugar')
 window.$ = window.jQuery = $;
 window.axios = axios
+
+
 
 new Vue({
     el:'#app',
