@@ -48,6 +48,23 @@
             </span>
             <span>
                 <input type="text" v-model="member.zip">
+                <button @click="supportAddress(member.zip)">検索</button>
+            </span>
+        </li>
+        <li>
+            <span>
+                住所1
+            </span>
+            <span>
+                <input type="text" v-model="member.address1">
+            </span>
+        </li>
+        <li>
+            <span>
+                住所2
+            </span>
+            <span>
+                <input type="text" v-model="member.address2">
             </span>
         </li>
     </div>
@@ -71,7 +88,21 @@ export default {
       }
   },
   methods:{
+      async supportAddress(zip) {
+          let link = `/api/getAddress?zip=${zip}`
+          return axios.get(link).then(response => {
+              if (response !== undefined ){
+                if (response.data.full_address !== undefined) {
+                    this.$store.commit("member/setProp", { 'prop': 'address1' , 'value' : response.data.full_address});
+                } else {
+                    alert("住所が存在しません。")
+                }
+              }
+          },
+         error =>{
 
+         });
+      }
   },
   created(){
 

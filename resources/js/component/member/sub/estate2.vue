@@ -2,22 +2,6 @@
     <div>
         <li>
             <span>
-                住所1
-            </span>
-            <span>
-                <input type="text" v-model="member.address1">
-            </span>
-        </li>
-        <li>
-            <span>
-                住所2
-            </span>
-            <span>
-                <input type="text" v-model="member.address2">
-            </span>
-        </li>
-        <li>
-            <span>
                 メールアドレス
             </span>
             <span>

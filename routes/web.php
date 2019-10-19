@@ -19,6 +19,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('getPref', "Api\AreaController@getPref")->name('getPref');
     Route::get('getCity', "Api\AreaController@getCity")->name('getCity');
     Route::get('getTown', "Api\AreaController@getTown")->name('getTown');
+    Route::get('getAddress', "Api\AreaController@getAddress")->name('getAddress');
 
     Route::group(['prefix' => 'member'], function () {
         Route::get('list', "Api\MemberController@list")->name('member@list');
