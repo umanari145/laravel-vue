@@ -18,7 +18,7 @@ const router = new VueRouter({
             component:regist
         },
         {
-            path:'/edit/:hash_key',
+            path:'/edit/:member_id',
             component:edit
         }
     ]

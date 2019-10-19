@@ -24,11 +24,9 @@ export default {
           params
       ).then(res => {
           console.log("登録しました")
-          console.log(res)
       }).catch(error => {
           console.log("失敗しました")
       })
-
     }
   },
   created(){

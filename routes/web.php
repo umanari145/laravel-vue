@@ -20,8 +20,14 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('getCity', "Api\AreaController@getCity")->name('getCity');
     Route::get('getTown', "Api\AreaController@getTown")->name('getTown');
 
-    Route::group(['prefix' => 'persons'], function () {
-        Route::get('', "Api\MemberController@list")->name('member@list');
+    Route::group(['prefix' => 'member'], function () {
+        Route::get('list', "Api\MemberController@list")->name('member@list');
+        Route::post('regist', "Api\MemberController@regist")->name('member@regist');
+        Route::get('detail/{memberId}', "Api\MemberController@detail")->name('member@detail');
+        Route::put('edit/{memberId}', "Api\MemberController@edit")->name('member@edit');
     });
-    Route::post('/member/regist', "Api\MemberController@regist")->name('member@regist');
 });
+
+Route::get('/{any}', function () {
+    return view('index');
+})->where('any', '.*');

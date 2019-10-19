@@ -1,4 +1,4 @@
-const member = {
+const master = {
     namespaced: true,
     state:{
         master:{
@@ -27,4 +27,4 @@ const member = {
    }
 }
 
-export default member
+export default master
