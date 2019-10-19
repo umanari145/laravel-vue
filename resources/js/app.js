@@ -19,9 +19,8 @@ window.Sugar = require('Sugar')
 window.$ = window.jQuery = $;
 window.axios = axios
 
-
-
 new Vue({
     el:'#app',
+    store,
     router
 })

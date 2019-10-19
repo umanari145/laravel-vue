@@ -13,11 +13,11 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css')
-   .sourceMaps('true')
-   .browserSync({
-    host:'laravel-vue.local',
-    proxy: {
-        target:"http://laravel-vue.local",
-        ws: true
-    }
-  });
+   .sourceMaps('true');
+  // .browserSync({
+//    host:'laravel-vue.local',
+//    proxy: {
+//        target:"http://laravel-vue.local",
+//        ws: true
+//    }
+  //});
