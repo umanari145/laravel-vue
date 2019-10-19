@@ -20,7 +20,7 @@ class MemberController extends Controller
     public function regist(Request $request)
     {
         $data = $request->all();
-        Log::info(print_r($data));
+        //Log::info(print_r($data, true));
         return response()->json([
             'res' => true
         ], 200, [], JSON_UNESCAPED_UNICODE);

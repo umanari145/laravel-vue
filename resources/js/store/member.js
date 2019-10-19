@@ -28,10 +28,8 @@ const member = {
         }
     },
     actions:{
-        async save({state}) {
-            const json = await axios.post(`/api/member/regist`, state.member)
-        }
-   }
+
+    }
 }
 
 export default member

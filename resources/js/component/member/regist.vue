@@ -15,7 +15,20 @@ export default {
   },
   methods:{
     registMember() {
-      this.$store.dispatch('member/save')
+        let member = this.$store.getters["member/getMember"]
+        let params = {
+            'member':member
+        }
+        axios.post(
+          `/api/member/regist`,
+          params
+      ).then(res => {
+          console.log("登録しました")
+          console.log(res)
+      }).catch(error => {
+          console.log("失敗しました")
+      })
+
     }
   },
   created(){
