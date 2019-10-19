@@ -87,15 +87,12 @@
                 <span>
                     交通手段
                 </span>
-                <span v-for="(label_str, value_str) in master_list.traffic">
-                    <input
-                        type="checkbox"
-                        :id=" 'traffic_' + value_str "
-                        :value="value_str"
-                        v-model="member.traffic"
-                    >
-                    <label :for=" 'traffic_' +  value_str">{{label_str}}</label>
-                </span>
+                <MasterLists
+                    type="checkbox"
+                    @child-event="parentMethod"
+                    :kvlists="master_list.traffic"
+                    hash_key="traffic">
+                </MasterLists>
             </li>
             <li>
                 <span>
