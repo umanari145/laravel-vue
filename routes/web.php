@@ -23,4 +23,5 @@ Route::group(['prefix' => 'api'], function () {
     Route::group(['prefix' => 'persons'], function () {
         Route::get('', "Api\MemberController@list")->name('member@list');
     });
+    Route::post('/member/regist', "Api\MemberController@regist")->name('member@regist');
 });

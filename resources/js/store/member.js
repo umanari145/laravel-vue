@@ -1,3 +1,5 @@
+
+
 const member = {
     namespaced: true,
     state:{
@@ -23,16 +25,12 @@ const member = {
     mutations:{
         setMember(state, member) {
             state.member = member
-        },
-        setSex(state,val) {
-            state.member.sex = val
-        },
-        saveMember(state) {
-            console.log(state.member)
         }
     },
     actions:{
-
+        async save({state}) {
+            const json = await axios.post(`/api/member/regist`, state.member)
+        }
    }
 }
 

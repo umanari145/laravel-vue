@@ -15,7 +15,7 @@ export default {
   },
   methods:{
     registMember() {
-      this.$store.commit("member/saveMember");
+      this.$store.dispatch('member/save')
     }
   },
   created(){
