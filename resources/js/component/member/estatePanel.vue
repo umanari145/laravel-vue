@@ -120,6 +120,11 @@ export default {
           set(val) {
             this.$store.commit("member/setMember", val);
           }
+      },
+      master_list:{
+          get() {
+              return this.$store.getters["master/getMaster"];
+          }
       }
   },
   methods:{
@@ -127,21 +132,6 @@ export default {
   },
   created(){
 
-  },
-  data(){
-
-    let sex_list = {"1":"男", "2":"女"}
-    let occupation_list = {"1":"学生", "2":"会社員", "3":"自営業・経営者", "4":"その他"}
-    let traffic_list = {"1":"徒歩", "2":"自転車", "3":"バス", "4":"電車", "5":"その他"}
-    let master_list = {
-        "sex":sex_list,
-        "occupation":occupation_list,
-        "traffic":traffic_list
-    }
-
-    return {
-        master_list:master_list,
-    }
   }
 }
 </script>
