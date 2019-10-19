@@ -33,10 +33,22 @@ export default {
   methods:{
     registMember() {
 
+    },
+    async getMembers() {
+        let link = '/api/persons/'
+        return await axios.get(link);
     }
   },
   created(){
-
+      this.is_loading = 1
+      this.getMembers().then(response => {
+          this.members = response.data;
+          console.log(this.members)
+          this.is_loading = 0
+      }, error => {
+          this.is_loading = 0
+          alert('データ取得に失敗しました。')
+      })
   },
   data(){
     return {

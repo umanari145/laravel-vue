@@ -24,7 +24,7 @@
         <!--select -->
 
         <!--check -->
-        <!--なぜかbindされる値が値にならずtrue/falseになるので却下-->
+        <!--配列で定義しないといけないのでvalueではなくvalue_arr-->
         <div>
             <span v-if=" type == 'checkbox'" v-for="(label_str, value_str) in kvlists">
                 <input
