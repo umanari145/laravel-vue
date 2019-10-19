@@ -7,7 +7,7 @@
     </div>
 </template>
 <script>
-import estatePanel from './estatePanel';
+import estatePanel from './sub/estatePanel';
 export default {
   name: 'App',
   components: {
