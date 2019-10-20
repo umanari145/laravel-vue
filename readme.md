@@ -28,5 +28,5 @@ bladeのなかでvue変数を展開する場合は@{{city}}などと@をつけ�
 
 ## masterブランチ 画面側は全てvueで
 
-一覧画面 http://laravel-vue.local/#/
+一覧画面 http://laravel-vue.local/#/ <br>
 新規登録 http://laravel-vue.local/#/regist
