@@ -28,17 +28,13 @@ class Mjuusho extends Model
         return $cityList;
     }
 
-    public static function getTownList($prefCd, $cityCds)
+    public static function getTownList($prefCd, $cityCd)
     {
-        $townList = self::select(DB::raw("shikuchouson, ooaza, CONCAT(shikuchouson_cd,'-', ooaza_cd) as aza_cd"))
+        $townList = self::select(DB::raw("ken, shikuchouson, ooaza, CONCAT(ken, shikuchouson, ooaza) as full_address ,CONCAT(shikuchouson_cd,'-', ooaza_cd) as aza_cd"))
                     ->distinct()
                     ->where('m_prefectures_id', $prefCd)
-                    ->whereIn('shikuchouson_cd', $cityCds)
-                    ->get()
-                    ->groupBy('shikuchouson')
-                    ->map(function ($v) {
-                        return $v->pluck('ooaza', 'aza_cd');
-                    });
+                    ->where('shikuchouson_cd', $cityCd)
+                    ->get();
 
         return $townList;
     }

@@ -25,9 +25,8 @@ class AreaController extends Controller
     public function getTown(Request $request)
     {
         $prefCd = $request->input('pref_cd');
-        $cityCdStr = $request->input('city_cd');
-        $cityCds = explode(",", $cityCdStr);
-        $townList = Mjuusho::getTownList($prefCd, $cityCds);
+        $cityCd = $request->input('city_cd');
+        $townList = Mjuusho::getTownList($prefCd, $cityCd);
         return response()->json($townList, 200, [], JSON_UNESCAPED_UNICODE);
     }
 

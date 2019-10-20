@@ -16,7 +16,7 @@
 export default {
     methods:{
         searchMememer() {
-            this.$store.dispatch('member/getMembers')
+
         }
     },
     data(){

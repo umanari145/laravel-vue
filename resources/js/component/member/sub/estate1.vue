@@ -49,6 +49,7 @@
             <span>
                 <input type="text" v-model="member.zip">
                 <button @click="supportAddress(member.zip)">検索</button>
+                <button @click="$modal.show('areaModal')">入力補助</button>
             </span>
         </li>
         <li>
@@ -67,11 +68,16 @@
                 <input type="text" v-model="member.address2">
             </span>
         </li>
+        <areaModal></areaModal>
     </div>
 </template>
 <script>
+import areaModal from '../../area/areaModal'
 export default {
   name: 'App',
+  components:{
+    areaModal
+  },
   computed:{
       member: {
           get() {
@@ -102,7 +108,10 @@ export default {
          error =>{
 
          });
-      }
+     },
+     async supportAddress2(zip) {
+
+     }
   },
   created(){
 

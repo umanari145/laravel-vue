@@ -7,7 +7,6 @@
 require('./bootstrap')
 import Vue from 'vue'
 import router from './router.js'
-
 //vue-modal
 import VModal from 'vue-js-modal'
 Vue.use(VModal)
