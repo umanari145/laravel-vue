@@ -7,6 +7,8 @@ const member = {
             'person_name':'',
             'sex':'',
             'occupation':'',
+            'sub_occupation':'',
+            'selected_occupation':'',
             'birtdh_day':'',
             'zip':'',
             'address1':'',
@@ -20,10 +22,7 @@ const member = {
     getters:{
         getMember(state) {
             return state.member
-        },
-        getProp(state, prop) {
-            return state.member.prop
-        },
+        }
     },
     mutations:{
         setMember(state, member) {

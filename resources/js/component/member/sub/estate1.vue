@@ -27,8 +27,20 @@
                 職業
             </span>
             <span>
-                <select v-model="member.occupation" >
+                <select v-model="member.occupation" @change="changeSuboccupation">
                     <option v-for="(label_str, value_str) in master_list.occupation" :value="value_str" >
+                        {{label_str}}
+                    </option>
+                </select>
+            </span>
+        </li>
+        <li>
+            <span>
+                職業(その２)
+            </span>
+            <span>
+                <select v-model="member.sub_occupation" >
+                    <option v-for="(label_str, value_str) in master_list.selected_occupation" :value="value_str" >
                         {{label_str}}
                     </option>
                 </select>
@@ -89,7 +101,11 @@ export default {
       },
       master_list:{
           get() {
-              return this.$store.getters["master/getMaster"];
+              let masters = this.$store.getters["master/getMaster"];
+              let occupation = this.$store.getters["member/getMember"]["occupation"];
+              masters.selected_occupation = masters.sub_occupation[occupation]
+
+              return masters
           }
       }
   },
@@ -109,11 +125,16 @@ export default {
 
          });
      },
-     async supportAddress2(zip) {
-
+     changeSuboccupation() {
+         let selected_occupation = this.$store.getters["member/getMember"]["occupation"];
+         let sub_occupation = this.$store.getters["master/getMaster"]["sub_occupation"];
+         let sub_occupation_arr = sub_occupation[selected_occupation];
+         this.$store.commit("master/setProp", {'prop':'selected_occupation', 'value':sub_occupation_arr});
      }
   },
   created(){
+  },
+  mounted() {
 
   }
 }
