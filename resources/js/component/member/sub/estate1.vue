@@ -101,6 +101,7 @@ export default {
       },
       master_list:{
           get() {
+              //連動型のプルダウン
               let masters = this.$store.getters["master/getMaster"];
               let occupation = this.$store.getters["member/getMember"]["occupation"];
               masters.selected_occupation = masters.sub_occupation[occupation]
@@ -126,9 +127,9 @@ export default {
          });
      },
      changeSuboccupation() {
-         let selected_occupation = this.$store.getters["member/getMember"]["occupation"];
+         let occupation = this.$store.getters["member/getMember"]["occupation"];
          let sub_occupation = this.$store.getters["master/getMaster"]["sub_occupation"];
-         let sub_occupation_arr = sub_occupation[selected_occupation];
+         let sub_occupation_arr = sub_occupation[occupation];
          this.$store.commit("master/setProp", {'prop':'selected_occupation', 'value':sub_occupation_arr});
      }
   },
