@@ -36,6 +36,7 @@ class AreaController extends Controller
         $address = PostCode::getAddress($zip);
         if (!empty($address)) {
             $address->full_address = sprintf('%s%s%s', $address->pref, $address->city, $address->town);
+            $address->zip = sprintf('%07d', $address->zip);
         }
 
         return response()->json($address, 200, [], JSON_UNESCAPED_UNICODE);

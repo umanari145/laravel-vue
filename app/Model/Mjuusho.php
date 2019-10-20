@@ -23,14 +23,14 @@ class Mjuusho extends Model
         $cityList = self::select('shikuchouson', 'shikuchouson_cd')
                     ->distinct()
                     ->where('m_prefectures_id', $prefCd)
-                    ->get()
-                    ->pluck('shikuchouson', 'shikuchouson_cd');
+                    ->get();
+
         return $cityList;
     }
 
     public static function getTownList($prefCd, $cityCd)
     {
-        $townList = self::select(DB::raw("ken, shikuchouson, ooaza, CONCAT(ken, shikuchouson, ooaza) as full_address ,CONCAT(shikuchouson_cd,'-', ooaza_cd) as aza_cd"))
+        $townList = self::select(DB::raw("zipcode as zip, ken, shikuchouson, ooaza, CONCAT(ken, shikuchouson, ooaza) as full_address ,CONCAT(shikuchouson_cd,'-', ooaza_cd) as aza_cd"))
                     ->distinct()
                     ->where('m_prefectures_id', $prefCd)
                     ->where('shikuchouson_cd', $cityCd)

@@ -28,13 +28,14 @@
             <div v-show="showMode == 'city'">
                 <!--市区町村-->
                 <span>市区選択</span>
+                <input type="text" v-model="filter_city" v-on:keyup.enter.submit="screening_city">
                 <div class="area_block">
                     <li class="l_20" v-for="(city,index2) in cities">
                       <input type="radio"
                       :id="'city_' + index2"
-                      :value=index2
+                      :value=city.shikuchouson_cd
                       v-model="selectedCity">
-                      <label :for="'city_' + index2">{{city}}</label>
+                      <label :for="'city_' + index2">{{city.shikuchouson}}</label>
                     </li>
                 </div>
                 <button @click="searchTown()">町村検索</button>
@@ -42,12 +43,14 @@
 
             <div v-show="showMode == 'town'">
                 <!--町村-->
+                <span>町村</span>
+                <input type="text" v-model="filter_town" v-on:keyup.enter.submit="screening_town">
                 <div class="area_block">
                   <li class="l_20" v-for = " ( town, index3 ) in towns">
                     <input type="radio"
                     :id="'town_'+ town.aza_cd"
-                    :value=town.full_address
-                    v-model="selectedAdress">
+                    :value= town
+                    v-model="selectedAddress">
                     <label :for="'town_' + town.aza_cd">{{town.ooaza}}</label>
                   </li>
                 </div>
@@ -82,7 +85,8 @@ export default {
                if (response !== undefined ){
                  if (response.data !== undefined) {
                      this.showMode = 'city'
-                     this.cities= response.data
+                     this.cities = response.data
+                     this.fullcities = response.data
                  } else {
                      alert("市区町村が存在しません。")
                  }
@@ -91,6 +95,13 @@ export default {
           error =>{
              alert("サーバーとの通信に失敗しました。。")
           });
+       },
+       screening_city() {
+         //一度初期化する
+         this.cities = this.fullcities
+         this.cities = _.filter(this.cities, (city) => {
+             return city.shikuchouson.indexOf(this.filter_city) != -1
+         })
        },
        async searchTown() {
            let pref_cd = this.selectedPref
@@ -102,6 +113,7 @@ export default {
                  if (response.data !== undefined) {
                      this.showMode = 'town'
                      this.towns= response.data
+                     this.fulltowns = response.data
                  } else {
                      alert("市区町村が存在しません。")
                  }
@@ -111,8 +123,16 @@ export default {
              alert("サーバーとの通信に失敗しました。。")
           });
        },
+       screening_town() {
+         //一度初期化する
+         this.towns = this.fulltowns
+         this.towns = _.filter(this.towns, (town) => {
+             return town.ooaza.indexOf(this.filter_town) != -1
+         })
+       },
        setAddress() {
-           this.$store.commit("member/setProp", { 'prop': 'address1' , 'value' : this.selectedAdress});
+           this.$store.commit("member/setProp", { 'prop': 'zip' , 'value' : this.selectedAddress.zip});
+           this.$store.commit("member/setProp", { 'prop': 'address1' , 'value' : this.selectedAddress.full_address});
        }
     },
     created() {
@@ -123,10 +143,14 @@ export default {
             prefs:'',
             showMode:'pref',
             selectedPref:'',
-            cities:'',
+            cities:[],
+            fullcities:[],
             selectedCity:'',
-            towns:'',
-            selectedAdress:''
+            towns:[],
+            fulltowns:[],
+            filter_city:'',
+            filter_town:'',
+            selectedAddress:null
         }
     }
 }
