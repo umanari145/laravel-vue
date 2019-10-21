@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="w-25">
         サイドバーだよ
     </div>
 </template>
