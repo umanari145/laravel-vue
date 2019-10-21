@@ -9,7 +9,10 @@
 </head>
 <body>
 <div id="app" v-cloak>
-    <router-view></router-view>
+    <div >
+        <sidenavi></sidenavi><router-view></router-view>
+    </div>
+
 </div>
 <script src="{{ asset('js/app.js') }}"></script>
 </body>

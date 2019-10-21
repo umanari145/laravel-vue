@@ -7,8 +7,12 @@
 require('./bootstrap')
 import Vue from 'vue'
 import router from './router.js'
+import sidenavi from './component/layout/sidenavi'
+
 //vue-modal
 import VModal from 'vue-js-modal'
+Vue.component('sidenavi', sidenavi)
+
 Vue.use(VModal)
 window.axios = axios
 import store from './store/index.js';
