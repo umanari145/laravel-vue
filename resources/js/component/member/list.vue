@@ -34,9 +34,6 @@ export default {
       members: {
         get() {
             return this.$store.getters["members/getMembers"];
-        },
-        set(val) {
-          this.$store.commit("members/setMembers", val);
         }
       },
   },
