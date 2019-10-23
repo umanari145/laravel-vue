@@ -30,6 +30,16 @@ export default {
       loading,
       searchModal
   },
+  computed:{
+      members: {
+        get() {
+            return this.$store.getters["members/getMembers"];
+        },
+        set(val) {
+          this.$store.commit("members/setMembers", val);
+        }
+      },
+  },
   methods:{
     registMember() {
 
@@ -42,8 +52,9 @@ export default {
   created(){
       this.is_loading = 1
       this.getMembers().then(response => {
-          this.members = response.data;
-          console.log(this.members)
+          let members = response.data;
+
+          this.$store.commit("members/setMembers", members);
           this.is_loading = 0
       }, error => {
           this.is_loading = 0
@@ -53,7 +64,6 @@ export default {
   data(){
     return {
         is_loading:0,
-        members:''
     }
   }
 }

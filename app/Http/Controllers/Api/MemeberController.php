@@ -13,7 +13,14 @@ class MemberController extends Controller
 
     public function list(Request $request)
     {
-        $memberList = Persons::get()->toArray();
+        $search_params = $request->all();
+
+        if (!empty($search_params)){
+            $memberList = Persons::where($search_params)->get()->toArray();
+        } else {
+            $memberList = Persons::get()->toArray();
+        }
+
         return response()->json($memberList, 200, [], JSON_UNESCAPED_UNICODE);
     }
 
