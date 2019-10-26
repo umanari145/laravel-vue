@@ -1,9 +1,17 @@
 <template>
     <div>
-        <ul>
-            <estate1></estate1>
-            <estate2></estate2>
-        </ul>
+        <b-tabs content-class="mt-3">
+            <b-tab title="個人情報その１" active>
+                <ul>
+                    <estate1></estate1>
+                </ul>
+            </b-tab>
+            <b-tab title="個人情報その２">
+                <ul>
+                    <estate2></estate2>
+                </ul>
+            </b-tab>
+        </b-tabs>
     </div>
 </template>
 <script>

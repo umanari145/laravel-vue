@@ -9,11 +9,13 @@ import Vue from 'vue'
 import router from './router.js'
 import sidenavi from './component/layout/sidenavi'
 import BootstrapVue from 'bootstrap-vue'
-
-//vue-modal
 import VModal from 'vue-js-modal'
-Vue.component('sidenavi', sidenavi)
+import DrawerLayout from 'vue-drawer-layout'
+import basic from './component/layout/basic'
 
+Vue.component('basic', basic)
+Vue.component('sidenavi', sidenavi)
+Vue.use(DrawerLayout)
 Vue.use(BootstrapVue)
 Vue.use(VModal)
 window.axios = axios

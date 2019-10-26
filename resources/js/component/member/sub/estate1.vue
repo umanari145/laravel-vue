@@ -60,7 +60,7 @@
             </span>
             <span>
                 <input type="text" v-model="member.zip">
-                <b-button variant="info" @click="supportAddress(member.zip)">検索</b-button>
+                <b-button variant="info" @click="supportAddress(member.zip)"  v-b-tooltip.hover title="郵便番号から住所検索ができます。">検索</b-button>
                 <b-button variant="info" @click="$modal.show('areaModal')">入力補助</b-button>
             </span>
         </li>

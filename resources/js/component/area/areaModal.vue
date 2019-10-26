@@ -3,14 +3,15 @@
         <modal name="areaModal"
         :adaptive=true
         :width="800"
-        :height="300"
+        :height="500"
         :scrollable=true
         @before-open="getPref"
         >
-            <div v-show="showMode == 'pref'">
+            <div v-show="showMode == 'pref'" style="position:relative;">
                 <!--都道府県-->
                 <span>県選択</span>
                 <div>
+                    <b-spinner label="Spinning" v-if="is_show_spinner == 1"></b-spinner>
                     <ul>
                         <li class="l_20" v-for="(pref,index) in prefs">
                             <input type="radio"
@@ -21,7 +22,7 @@
                         </li>
                     </ul>
                 </div>
-                <button @click="searchCity()">市区検索</button>
+                <button v-if="is_show_spinner == 0" @click="searchCity()">市区検索</button>
             </div>
 
 
@@ -73,8 +74,10 @@ export default {
                       alert("県が存在しません。")
                   }
                 }
+                this.is_show_spinner = 0;
             },
            error =>{
+               this.is_show_spinner = 0;
               alert("サーバーとの通信に失敗しました。。")
            });
        },
@@ -140,6 +143,7 @@ export default {
     },
     data(){
         return {
+            is_show_spinner:1,
             prefs:'',
             showMode:'pref',
             selectedPref:'',
