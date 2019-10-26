@@ -38,7 +38,7 @@
                       <label :for="'city_' + index2">{{city.shikuchouson}}</label>
                     </li>
                 </div>
-                <button @click="searchTown()">町村検索</button>
+                <b-button variant="outline-primary" @click="searchTown()">町村検索</b-button>
             </div>
 
             <div v-show="showMode == 'town'">

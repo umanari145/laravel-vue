@@ -20,15 +20,17 @@
             <span>
                 交通手段
             </span>
-            <span v-for="(label_str, value_str) in master_list.traffic">
-                <input
-                    type="checkbox"
-                    :id=" 'traffic_' + value_str "
-                    :value="value_str"
-                    v-model="member.traffic"
+            <b-form-group>
+                <b-form-checkbox-group
+                v-model="member.traffic"
+                :options="master_list.traffic"
+                buttons
+                button-variant="outline-primary"
+                size="md"
+                name="buttons-2"
                 >
-                <label :for=" 'traffic_' +  value_str">{{label_str}}</label>
-            </span>
+                </b-form-checkbox-group>
+            </b-form-group>
         </li>
         <li>
             <span>

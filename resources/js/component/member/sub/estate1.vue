@@ -60,8 +60,8 @@
             </span>
             <span>
                 <input type="text" v-model="member.zip">
-                <button @click="supportAddress(member.zip)">検索</button>
-                <button @click="$modal.show('areaModal')">入力補助</button>
+                <b-button variant="info" @click="supportAddress(member.zip)">検索</b-button>
+                <b-button variant="info" @click="$modal.show('areaModal')">入力補助</b-button>
             </span>
         </li>
         <li>
