@@ -7,56 +7,63 @@
         :scrollable=true
         @before-open="getPref"
         >
-            <div v-show="showMode == 'pref'" style="position:relative;">
-                <!--都道府県-->
-                <span>県選択</span>
+        <b-tabs content-class="mt-3">
+            <b-tab title="都道府県" :active="is_pref_active" :disabled="is_pref_disabled">
+                <div style="position:relative;">
+                    <!--都道府県-->
+                    <span>県選択</span>
+                    <div>
+                        <b-spinner label="Spinning" v-if="is_show_spinner == 1"></b-spinner>
+                        <ul>
+                            <li class="l_20" v-for="(pref,index) in prefs">
+                                <input type="radio"
+                                :value="index"
+                                v-model="selectedPref"
+                                :id="'pref_' + index">
+                                <label :for="'pref_' + index">{{pref}}</label>
+                            </li>
+                        </ul>
+                    </div>
+                    <button v-if="is_show_spinner == 0" @click="searchCity()">市区検索</button>
+                </div>
+            </b-tab>
+
+            <b-tab title="市区" :active="is_town_active" :disabled="is_town_disabled">
                 <div>
-                    <b-spinner label="Spinning" v-if="is_show_spinner == 1"></b-spinner>
-                    <ul>
-                        <li class="l_20" v-for="(pref,index) in prefs">
-                            <input type="radio"
-                            :value="index"
-                            v-model="selectedPref"
-                            :id="'pref_' + index">
-                            <label :for="'pref_' + index">{{pref}}</label>
+                    <!--市区町村-->
+                    <span>市区選択</span>
+                    <input type="text" v-model="filter_city" v-on:keyup.enter.submit="screening_city">
+                    <div class="area_block">
+                        <li class="l_20" v-for="(city,index2) in cities">
+                          <input type="radio"
+                          :id="'city_' + index2"
+                          :value=city.shikuchouson_cd
+                          v-model="selectedCity">
+                          <label :for="'city_' + index2">{{city.shikuchouson}}</label>
                         </li>
-                    </ul>
+                    </div>
+                    <b-button variant="outline-primary" @click="searchTown()">町村検索</b-button>
                 </div>
-                <button v-if="is_show_spinner == 0" @click="searchCity()">市区検索</button>
-            </div>
+            </b-tab>
 
-
-            <div v-show="showMode == 'city'">
-                <!--市区町村-->
-                <span>市区選択</span>
-                <input type="text" v-model="filter_city" v-on:keyup.enter.submit="screening_city">
-                <div class="area_block">
-                    <li class="l_20" v-for="(city,index2) in cities">
-                      <input type="radio"
-                      :id="'city_' + index2"
-                      :value=city.shikuchouson_cd
-                      v-model="selectedCity">
-                      <label :for="'city_' + index2">{{city.shikuchouson}}</label>
-                    </li>
-                </div>
-                <b-button variant="outline-primary" @click="searchTown()">町村検索</b-button>
-            </div>
-
-            <div v-show="showMode == 'town'">
-                <!--町村-->
-                <span>町村</span>
-                <input type="text" v-model="filter_town" v-on:keyup.enter.submit="screening_town">
-                <div class="area_block">
-                  <li class="l_20" v-for = " ( town, index3 ) in towns">
-                    <input type="radio"
-                    :id="'town_'+ town.aza_cd"
-                    :value= town
-                    v-model="selectedAddress">
-                    <label :for="'town_' + town.aza_cd">{{town.ooaza}}</label>
-                  </li>
-                </div>
+            <b-tab title="町村" :active="is_choson_active" :disabled="is_choson_disabled">
+                <div>
+                    <!--町村-->
+                    <span>町村</span>
+                    <input type="text" v-model="filter_town" v-on:keyup.enter.submit="screening_town">
+                    <div class="area_block">
+                      <li class="l_20" v-for = " ( town, index3 ) in towns">
+                        <input type="radio"
+                        :id="'town_'+ town.aza_cd"
+                        :value= town
+                        v-model="selectedAddress">
+                        <label :for="'town_' + town.aza_cd">{{town.ooaza}}</label>
+                      </li>
+                    </div>
                 <button @click="setAddress">入力</button>
-            </div>
+                </div>
+            </b-tab>
+        </b-tabs>
         </modal>
     </div>
 </template>
@@ -87,9 +94,12 @@ export default {
            return axios.get(link).then(response => {
                if (response !== undefined ){
                  if (response.data !== undefined) {
-                     this.showMode = 'city'
                      this.cities = response.data
                      this.fullcities = response.data
+                     this.is_pref_active = true
+                     this.is_pref_disabled = true
+                     this.is_town_active = true
+                     this.is_town_disabled = false
                  } else {
                      alert("市区町村が存在しません。")
                  }
@@ -114,9 +124,12 @@ export default {
            return axios.get(link).then(response => {
                if (response !== undefined ){
                  if (response.data !== undefined) {
-                     this.showMode = 'town'
                      this.towns= response.data
                      this.fulltowns = response.data
+                     this.is_town_active = false
+                     this.is_town_disabled = true
+                     this.is_choson_active = true
+                     this.is_choson_disabled = false
                  } else {
                      alert("市区町村が存在しません。")
                  }
@@ -145,12 +158,17 @@ export default {
         return {
             is_show_spinner:1,
             prefs:'',
-            showMode:'pref',
             selectedPref:'',
             cities:[],
             fullcities:[],
             selectedCity:'',
             towns:[],
+            is_pref_active:true,
+            is_pref_disabled:false,
+            is_town_active:false,
+            is_town_disabled:true,
+            is_choson_active:false,
+            is_choson_disabled:true,
             fulltowns:[],
             filter_city:'',
             filter_town:'',

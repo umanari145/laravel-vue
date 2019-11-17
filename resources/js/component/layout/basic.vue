@@ -7,7 +7,8 @@
             :drawer-width="480"
             :drawable-distance="160"
             :z-index="0"
-            :content-drawable="true"
+            :enable="false"
+            :content-drawable="false"
             >
                 <div class="text" style="color:#000;">サイドバーだよ</div>
                 <a href="javascript:void(0)" class="btn"
