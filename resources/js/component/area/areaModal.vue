@@ -69,8 +69,30 @@
 </template>
 
 <script>
+
+import address_repository from '../../repository/address_repository.js'
+
+const add_repo = new address_repository()
+
 export default {
     methods:{
+        getPref(){
+            add_repo.getPref().
+            then((response) => {
+                if (response !== undefined ){
+                  if (response.data !== undefined) {
+                      this.prefs = response.data
+                  } else {
+                      alert("県が存在しません。")
+                  }
+                }
+            }).catch((err) => {
+                alert("サーバーとの通信に失敗しました。")
+            }).finally(()=>{
+                this.is_show_spinner = 0;
+            })
+        },
+        /*
         async getPref() {
             let link = `/api/getPref`
             return axios.get(link).then(response => {
@@ -87,7 +109,7 @@ export default {
                this.is_show_spinner = 0;
               alert("サーバーとの通信に失敗しました。。")
            });
-       },
+       },*/
        async searchCity() {
            let pref_cd = this.selectedPref
            let link = `/api/getCity?pref_cd=${pref_cd}`
