@@ -153,6 +153,28 @@ export default {
        setAddress() {
            this.$store.commit("member/setProp", { 'prop': 'zip' , 'value' : this.selectedAddress.zip});
            this.$store.commit("member/setProp", { 'prop': 'address1' , 'value' : this.selectedAddress.full_address});
+           this.$modal.hide('areaModal')
+           this.modal_init()
+       },
+       modal_init() {
+           this.is_show_spinner = 1
+           this.prefs = ''
+           this.selectedPref = ''
+           this.cities = []
+           this.fullcities = []
+           this.selectedCity = ''
+           this.towns = []
+           this.is_pref_active = true
+           this.is_pref_disabled = false
+           this.is_town_active = false
+           this.is_town_disabled = true
+           this.is_choson_active = false
+           this.is_choson_disabled = true
+           this.fulltowns = []
+           this.filter_city = ''
+           this.filter_town = ''
+           this.selectedAddress = null
+
        }
     },
     created() {
