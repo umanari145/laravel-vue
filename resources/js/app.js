@@ -7,12 +7,12 @@
 require('./bootstrap')
 
 import Vue from 'vue'
-import router from './router.js'
-import sidenavi from './component/layout/sidenavi'
+import router from "@/router.js"
+import sidenavi from "@/component/layout/sidenavi"
 import BootstrapVue from 'bootstrap-vue'
 import VModal from 'vue-js-modal'
 import DrawerLayout from 'vue-drawer-layout'
-import basic from './component/layout/basic'
+import basic from "@/component/layout/basic"
 
 Vue.component('basic', basic)
 Vue.component('sidenavi', sidenavi)
@@ -20,7 +20,7 @@ Vue.use(DrawerLayout)
 Vue.use(BootstrapVue)
 Vue.use(VModal)
 window.axios = axios
-import store from './store/index.js';
+import store from "@/store/index.js"
 
 window.Vue = Vue;
 window.Sugar = require('Sugar')

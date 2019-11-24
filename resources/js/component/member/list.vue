@@ -21,8 +21,8 @@
 </template>
 <script>
 import Sugar from 'Sugar';
-import loading from '../../util/loading'
-import searchModal from '../../util/searchModal'
+import loading from "@/util/loading"
+import searchModal from "@/util/searchModal"
 
 export default {
   name: 'App',
