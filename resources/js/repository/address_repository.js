@@ -16,8 +16,8 @@ export default class address_repository{
         })
     }
 
-    async getCity(pref_cd) {
-        let link = `/api/getPref`
+    async searchCity(pref_cd) {
+        let link = `/api/getCity?pref_cd=${pref_cd}`
         return new Promise((resolve, reject) => {
             axios.get(link).then((response) => {
                 resolve(response)
@@ -27,8 +27,8 @@ export default class address_repository{
         })
     }
 
-    async getPref() {
-        let link = `/api/getPref`
+    async searchTown(pref_cd, city_cd) {
+        let link = `/api/getTown?pref_cd=${pref_cd}&city_cd=${city_cd}`
         return new Promise((resolve, reject) => {
             axios.get(link).then((response) => {
                 resolve(response)

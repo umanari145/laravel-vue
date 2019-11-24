@@ -31,6 +31,7 @@
             <b-tab title="市区" :active="is_town_active" :disabled="is_town_disabled">
                 <div>
                     <!--市区町村-->
+                    <b-spinner label="Spinning" v-if="is_show_spinner == 1"></b-spinner>
                     <span>市区選択</span>
                     <input type="text" v-model="filter_city" v-on:keyup.enter.submit="screening_city">
                     <div class="area_block">
@@ -42,7 +43,7 @@
                           <label :for="'city_' + index2">{{city.shikuchouson}}</label>
                         </li>
                     </div>
-                    <b-button variant="outline-primary" @click="searchTown()">町村検索</b-button>
+                    <b-button variant="outline-primary" v-if="is_show_spinner== 0" @click="searchTown()">町村検索</b-button>
                 </div>
             </b-tab>
 
@@ -70,7 +71,7 @@
 
 <script>
 
-import address_repository from '../../repository/address_repository.js'
+import address_repository from "@/repository/address_repository.js"
 
 const add_repo = new address_repository()
 
@@ -92,44 +93,26 @@ export default {
                 this.is_show_spinner = 0;
             })
         },
-        /*
-        async getPref() {
-            let link = `/api/getPref`
-            return axios.get(link).then(response => {
-                if (response !== undefined ){
-                  if (response.data !== undefined) {
-                      this.prefs = response.data
-                  } else {
-                      alert("県が存在しません。")
-                  }
-                }
-                this.is_show_spinner = 0;
-            },
-           error =>{
-               this.is_show_spinner = 0;
-              alert("サーバーとの通信に失敗しました。。")
-           });
-       },*/
-       async searchCity() {
+       searchCity() {
+           this.is_show_spinner = 1;
            let pref_cd = this.selectedPref
-           let link = `/api/getCity?pref_cd=${pref_cd}`
-           return axios.get(link).then(response => {
-               if (response !== undefined ){
-                 if (response.data !== undefined) {
-                     this.cities = response.data
-                     this.fullcities = response.data
-                     this.is_pref_active = true
-                     this.is_pref_disabled = true
-                     this.is_town_active = true
-                     this.is_town_disabled = false
-                 } else {
-                     alert("市区町村が存在しません。")
-                 }
+           add_repo.searchCity(pref_cd).
+           then((response) => {
+               if (response.data !== undefined) {
+                   this.cities = response.data
+                   this.fullcities = response.data
+                   this.is_pref_active = true
+                   this.is_pref_disabled = true
+                   this.is_town_active = true
+                   this.is_town_disabled = false
+               } else {
+                   alert("市区町村が存在しません。")
                }
-           },
-          error =>{
-             alert("サーバーとの通信に失敗しました。。")
-          });
+           }).catch((err) => {
+              alert("サーバーとの通信に失敗しました。")
+           }).finally(()=>{
+              this.is_show_spinner = 0;
+           })
        },
        screening_city() {
          //一度初期化する
@@ -138,28 +121,27 @@ export default {
              return city.shikuchouson.indexOf(this.filter_city) != -1
          })
        },
-       async searchTown() {
+       searchTown() {
            let pref_cd = this.selectedPref
            let city_cd = this.selectedCity
-           let link = `/api/getTown?pref_cd=${pref_cd}&city_cd=${city_cd}`
-
-           return axios.get(link).then(response => {
-               if (response !== undefined ){
-                 if (response.data !== undefined) {
-                     this.towns= response.data
-                     this.fulltowns = response.data
-                     this.is_town_active = false
-                     this.is_town_disabled = true
-                     this.is_choson_active = true
-                     this.is_choson_disabled = false
-                 } else {
-                     alert("市区町村が存在しません。")
-                 }
+           this.is_show_spinner = 1;
+           add_repo.searchTown(pref_cd, city_cd).
+           then((response) => {
+               if (response.data !== undefined) {
+                   this.towns= response.data
+                   this.fulltowns = response.data
+                   this.is_town_active = false
+                   this.is_town_disabled = true
+                   this.is_choson_active = true
+                   this.is_choson_disabled = false
+               } else {
+                   alert("市区町村が存在しません。")
                }
-           },
-          error =>{
-             alert("サーバーとの通信に失敗しました。。")
-          });
+           }).catch((err) => {
+              alert("サーバーとの通信に失敗しました。")
+           }).finally(() => {
+              this.is_show_spinner = 0;
+           })
        },
        screening_town() {
          //一度初期化する
