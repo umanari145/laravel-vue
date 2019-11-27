@@ -1,6 +1,9 @@
 <template>
     <div>
         <li>
+            <button @click="disp_member">デバッグ</button>
+        </li>
+        <li>
             <span>
                 名前
             </span>
@@ -21,6 +24,17 @@
                >
                <label :for="'sex_' + value_str">{{label_str}}</label>
            </span>
+        </li>
+        <li>
+            <span>
+                好きな野球チーム
+            </span>
+            <span>
+                <Select
+                :value.sync="member.baseball_team"
+                :kv_list="master_list.baseball_team"
+                ></Select>
+            </span>
         </li>
         <li>
             <span>
@@ -80,15 +94,31 @@
                 <input type="text" v-model="member.address2">
             </span>
         </li>
+        <li style="width:300px;">
+            <b-form-file
+                v-model="input_file"
+                :state="Boolean(file)"
+                placeholder="Choose a file or drop it here..."
+                drop-placeholder="Drop file here..."
+                @change="testdayo"
+
+            ></b-form-file>
+            <div v-if="disp_image !=''">
+                <b-button @click="resetImage">画像リセット</b-button>
+            </div>
+            <img :src="disp_image" style="width:300px;height:500px;">
+        </li>
         <areaModal></areaModal>
     </div>
 </template>
 <script>
-import areaModal from '../../area/areaModal'
+import areaModal from "@/component/area/areaModal"
+import Select from "@/component/Parts/Forms/Select"
 export default {
   name: 'App',
   components:{
-    areaModal
+    areaModal,
+    Select
   },
   computed:{
       member: {
@@ -111,6 +141,26 @@ export default {
       }
   },
   methods:{
+      testdayo() {
+          let files = event.target.files || event.dataTransfer.files;
+          if (!files.length) {
+                return;
+          }
+          this.createImage(files[0])
+      },
+      createImage(file) {
+          let image = new Image();
+          let reader = new FileReader();
+          let vm = this
+          reader.onload = function(e) {
+              vm.disp_image = e.target.result;
+          };
+          reader.readAsDataURL(file);
+      },
+      resetImage() {
+          this.disp_image = ""
+          this.input_file = ""
+      },
       async supportAddress(zip) {
           let link = `/api/getAddress?zip=${zip}`
           return axios.get(link).then(response => {
@@ -131,12 +181,22 @@ export default {
          let sub_occupation = this.$store.getters["master/getMaster"]["sub_occupation"];
          let sub_occupation_arr = sub_occupation[occupation];
          this.$store.commit("master/setProp", {'prop':'selected_occupation', 'value':sub_occupation_arr});
+     },
+     disp_member() {
+        let member = this.$store.getters["member/getMember"];
+        console.log(member)
      }
   },
   created(){
   },
   mounted() {
 
-  }
+  },
+  data() {
+    return {
+        input_file:null,
+        disp_image:""
+    }
+  },
 }
 </script>
