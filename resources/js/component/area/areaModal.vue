@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="modal_wrapper">
         <modal name="areaModal"
         :adaptive=true
         :width="800"
@@ -7,13 +7,20 @@
         :scrollable=true
         @before-open="getPref"
         >
-        <b-tabs content-class="mt-3">
+        <!--ローディング-->
+        <div class="spininng" v-if="is_show_spinner == 1">
+            <b-spinner label="Spinning" type="grow">
+            </b-spinner>
+        </div>
+        <b-tabs
+        content-class="mt-3"
+        >
             <b-tab title="都道府県" :active="is_pref_active" :disabled="is_pref_disabled">
-                <div style="position:relative;">
+                <div class="inner_wrapper">
                     <!--都道府県-->
                     <span>県選択</span>
                     <div>
-                        <b-spinner label="Spinning" v-if="is_show_spinner == 1"></b-spinner>
+
                         <ul>
                             <li class="l_20" v-for="(pref,index) in prefs">
                                 <input type="radio"
@@ -24,14 +31,18 @@
                             </li>
                         </ul>
                     </div>
-                    <button v-if="is_show_spinner == 0" @click="searchCity()">市区検索</button>
+                    <div class="button_wrapper">
+                        <b-button variant="outline-primary" v-if="is_show_spinner == 0" @click="searchCity()">市区検索</b-button>
+                    </div>
                 </div>
             </b-tab>
 
-            <b-tab title="市区" :active="is_town_active" :disabled="is_town_disabled">
-                <div>
+            <b-tab title="市区"
+            :active="is_town_active"
+            :disabled="is_town_disabled"
+            >
+                <div class="inner_wrapper">
                     <!--市区町村-->
-                    <b-spinner label="Spinning" v-if="is_show_spinner == 1"></b-spinner>
                     <span>市区選択</span>
                     <input type="text" v-model="filter_city" v-on:keyup.enter.submit="screening_city">
                     <div class="area_block">
@@ -43,12 +54,18 @@
                           <label :for="'city_' + index2">{{city.shikuchouson}}</label>
                         </li>
                     </div>
-                    <b-button variant="outline-primary" v-if="is_show_spinner== 0" @click="searchTown()">町村検索</b-button>
+                    <div class="button_wrapper">
+                        <b-button variant="outline-primary" v-if="is_show_spinner== 0" @click="searchTown()">町村検索</b-button>
+                    </div>
                 </div>
             </b-tab>
 
-            <b-tab title="町村" :active="is_choson_active" :disabled="is_choson_disabled">
-                <div>
+            <b-tab title="町村"
+            :active="is_choson_active"
+            :disabled="is_choson_disabled"
+            class="inner_wrapper"
+            >
+                <div class="inner_wrapper">
                     <!--町村-->
                     <span>町村</span>
                     <input type="text" v-model="filter_town" v-on:keyup.enter.submit="screening_town">
@@ -61,7 +78,9 @@
                         <label :for="'town_' + town.aza_cd">{{town.ooaza}}</label>
                       </li>
                     </div>
-                <button @click="setAddress">入力</button>
+                    <div class="button_wrapper">
+                        <b-button variant="outline-primary" @click="setAddress">入力</b-button>
+                    </div>
                 </div>
             </b-tab>
         </b-tabs>
@@ -209,7 +228,35 @@ export default {
     width: 20%;
 }
 
+.inner_wrapper{
+    margin: 10px;
+}
+.modal_wrapper{
+    position: relative;
+}
+
+.spininng{
+    opacity: 0.7;
+    background: #fff;
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.button_wrapper{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .area_block{
+    margin-left: 5px;
     overflow-y: scroll;
     height: 250px;
 }
