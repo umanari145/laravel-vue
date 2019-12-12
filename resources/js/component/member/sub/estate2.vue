@@ -2,10 +2,31 @@
     <div>
         <li>
             <span>
+                連絡手段
+            </span>
+            <span>
+                {{member.contact}}
+                <span  v-for="(label_str, value_str) in master_list.contact">
+                    <input
+                        type="radio"
+                        :id=" 'contact_' + value_str "
+                        :value="value_str"
+                        v-model="member.contact"
+                    >
+                <label :for="'contact_' + value_str">{{label_str}}</label>
+                </span>
+            </span>
+        </li>
+        <li>
+            <span>
                 メールアドレス
             </span>
             <span>
-                <input type="text" v-model="member.email">
+                <input
+                    type="text"
+                    v-model="member.email"
+                    :disabled= "disableEmail"
+                    >
             </span>
         </li>
         <li>
@@ -13,7 +34,11 @@
                 電話番号
             </span>
             <span>
-                <input type="text" v-model="member.tel">
+                <input
+                type="text"
+                v-model="member.tel"
+                :disabled="disableTel"
+                >
             </span>
         </li>
         <li>
@@ -22,6 +47,7 @@
             </span>
             <b-form-group>
                 <b-form-checkbox-group
+                label="Button-group style checkboxes"
                 v-model="member.traffic"
                 :options="master_list.traffic"
                 buttons
@@ -63,8 +89,33 @@ export default {
   methods:{
 
   },
+  watch:{
+      'member.contact':function(val){
+          if (val == "1") {
+              this.disableTel = false
+              this.disableEmail = "disabled"
+          } else if (val == "2") {
+              this.disableEmail = false
+              this.disableTel = "disabled"
+          } else {
+              this.disableTel = "disabled"
+              this.disableEmail = "disabled"
+          }
+      }
+  },
   created(){
 
+  },
+  data() {
+      return {
+          disableEmail:'disabled',
+          disableTel:'disabled',
+      }
   }
 }
 </script>
+<style lang="scss">
+input:disabled{
+    background: #999999;
+}
+</style>
