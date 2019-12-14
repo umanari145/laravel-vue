@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div v-show="is_loading == 1">
-            <loading></loading>
+        <div v-show="is_loading">
+            <Loading></Loading>
         </div>
         <ul>
             <li v-for="(member,index) in members">
@@ -21,13 +21,16 @@
 </template>
 <script>
 import Sugar from 'Sugar';
-import loading from "@/util/loading"
+import Loading from "@/component/Global/Loading"
 import searchModal from "@/util/searchModal"
+import member_repository from "@/repository/member_repository"
+
+const member_repo = new member_repository()
 
 export default {
   name: 'App',
   components:{
-      loading,
+      Loading,
       searchModal
   },
   computed:{
@@ -41,21 +44,18 @@ export default {
     registMember() {
 
     },
-    async getMembers() {
-        let link = '/api/member/list'
-        return await axios.get(link);
-    }
   },
   created(){
       this.is_loading = 1
-      this.getMembers().then(response => {
+      member_repo
+      .getMembers()
+      .then(response => {
           let members = response.data;
-
           this.$store.commit("members/setMembers", members);
-          this.is_loading = 0
-      }, error => {
-          this.is_loading = 0
-          alert('データ取得に失敗しました。')
+      }).catch((err) => {
+        alert("メンバー取得に失敗しました。")
+      }).finally(() => {
+        this.is_loading = 0
       })
   },
   data(){
