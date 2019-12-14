@@ -8,7 +8,7 @@
         @before-open="getPref"
         >
         <!--ローディング-->
-        <div class="spininng" v-if="is_show_spinner == 1">
+        <div class="spininng_back" v-if="is_show_spinner == 1">
             <b-spinner label="Spinning" type="grow">
             </b-spinner>
         </div>
@@ -235,7 +235,7 @@ export default {
     position: relative;
 }
 
-.spininng{
+.spininng_back{
     opacity: 0.7;
     background: #fff;
     position: absolute;
