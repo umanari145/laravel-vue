@@ -39,6 +39,14 @@ export default {
             return this.$store.getters["members/getMembers"];
         }
       },
+      is_loading:{
+        get() {
+          return this.$store.getters['loading/getIsLoading']
+        },
+        set(is_loading) {
+          this.$store.commit("loading/setIsLoading", is_loading)
+        }
+      }
   },
   methods:{
     registMember() {
@@ -57,11 +65,6 @@ export default {
       }).finally(() => {
         this.is_loading = 0
       })
-  },
-  data(){
-    return {
-        is_loading:0,
-    }
   }
 }
 </script>

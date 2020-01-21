@@ -170,10 +170,14 @@ export default {
          })
        },
        setAddress() {
-           this.$store.commit("member/setProp", { 'prop': 'zip' , 'value' : this.selectedAddress.zip});
-           this.$store.commit("member/setProp", { 'prop': 'address1' , 'value' : this.selectedAddress.full_address});
-           this.$modal.hide('areaModal')
-           this.modal_init()
+          this.$store.commit("member/setProp", { 'prop': 'zip' , 'value' : ''});
+          this.$store.commit("member/setProp", { 'prop': 'address1' , 'value' : ''});
+          this.$store.commit("member/setProp", { 'prop': 'address2' , 'value' : ''});
+
+          this.$store.commit("member/setProp", { 'prop': 'zip' , 'value' : this.selectedAddress.zip});
+          this.$store.commit("member/setProp", { 'prop': 'address1' , 'value' : this.selectedAddress.full_address});
+          this.$modal.hide('areaModal')
+          this.modal_init()
        },
        modal_init() {
            this.is_show_spinner = 1
