@@ -1,5 +1,8 @@
 <template>
     <div>
+       <div v-show="is_loading">
+          <Loading></Loading>
+        </div>
         <estatePanel></estatePanel>
         <div @click="registMember">
             保存だよ
@@ -8,10 +11,12 @@
 </template>
 <script>
 import estatePanel from './sub/estatePanel';
+import Loading from "@/component/Global/Loading";
 export default {
   name: 'App',
   components: {
-    estatePanel
+    estatePanel,
+    Loading
   },
   methods:{
     registMember() {
@@ -35,20 +40,24 @@ export default {
     }
   },
   created(){
-      this.is_loading = 1
+      this.is_loading = 1;
       let memberId = this.$route.params.member_id;
-
       this.getMember(memberId).then(response => {
           if (response.status == '200' && response.data.res == true && response.data.member != undefined) {
               let member = response.data.member
               this.$store.commit("member/setMember", member);
-          } else {
-
           }
-          this.is_loading = 0
-      }, error => {
-
+      }).catch(err=>{
+        alert("データの取得に失敗しました。");
+      }).finally(()=>{
+        console.log('aaaaa');
+        this.is_loading = 0;
       })
+  },
+  data(){
+    return {
+      is_loading:0
+    }
   }
 }
 </script>
