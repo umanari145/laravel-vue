@@ -98,22 +98,26 @@
             <b-form-file
                 v-model="input_file"
                 :state="Boolean(file)"
-                placeholder="Choose a file or drop it here..."
-                drop-placeholder="Drop file here..."
-                @change="testdayo"
-
+                placeholder="ファイルを選択してください。"
+                @change="uploadbase64"
             ></b-form-file>
             <div v-if="disp_image !=''">
                 <b-button @click="resetImage">画像リセット</b-button>
             </div>
-            <img :src="disp_image" style="width:300px;height:500px;">
+            <div v-if="disp_image !=''">
+              <img :src="disp_image" style="width:300px;height:500px;">
+            </div>
         </li>
         <areaModal></areaModal>
     </div>
 </template>
 <script>
-import areaModal from "@/component/area/areaModal"
-import Select from "@/component/Parts/Forms/Select"
+import areaModal from "@/component/area/areaModal";
+import address_repository from "@/repository/address_repository";
+import Select from "@/component/Parts/Forms/Select";
+
+const add_repo = new address_repository();
+
 export default {
   name: 'App',
   components:{
@@ -141,7 +145,7 @@ export default {
       }
   },
   methods:{
-      testdayo() {
+      uploadbase64() {
           let files = event.target.files || event.dataTransfer.files;
           if (!files.length) {
                 return;
@@ -161,20 +165,28 @@ export default {
           this.disp_image = ""
           this.input_file = ""
       },
-      async supportAddress(zip) {
-          let link = `/api/getAddress?zip=${zip}`
-          return axios.get(link).then(response => {
-              if (response !== undefined ){
-                if (response.data.full_address !== undefined) {
-                    this.$store.commit("member/setProp", { 'prop': 'address1' , 'value' : response.data.full_address});
-                } else {
-                    alert("住所が存在しません。")
-                }
-              }
-          },
-         error =>{
 
-         });
+      supportAddress(zip) {
+          this.$store.commit("loading/setIsLoading", 1);
+
+          this.$store.commit("member/setProp", { 'prop': 'address1' , 'value' : ''});
+          this.$store.commit("member/setProp", { 'prop': 'address2' , 'value' : ''});
+
+          add_repo.getAddressByZip(zip)
+          .then((response) => {
+            if (response.data.full_address !== undefined) {
+               this.$store.commit("member/setProp", { 'prop': 'address1' , 'value' : response.data.full_address});
+            } else {
+              alert("住所が存在しません。");
+            }
+          })
+          .catch((err) => {
+            alert("サーバーとの通信に失敗しました。");
+          })
+          .finally(()=>{
+            this.$store.commit("loading/setIsLoading", 0);
+          })
+
      },
      changeSuboccupation() {
          let occupation = this.$store.getters["member/getMember"]["occupation"];

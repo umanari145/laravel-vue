@@ -38,4 +38,14 @@ export default class address_repository{
         })
     }
 
+    async getAddressByZip(zip) {
+        let link = `/api/getAddress?zip=${zip}`
+        return new Promise((resolve, reject) => {
+            axios.get(link).then(response => {
+                resolve(response);
+            }).catch((error) => {
+                reject(error);
+            })
+        })
+    }
 }
