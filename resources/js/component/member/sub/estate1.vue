@@ -15,25 +15,21 @@
             <span>
                 性別
             </span>
-           <span  v-for="(label_str, value_str) in master_list.sex">
-               <input
-                   type="radio"
-                   :id=" 'sex_' + value_str "
-                   :value="value_str"
-                   v-model="member.sex"
-               >
-               <label :for="'sex_' + value_str">{{label_str}}</label>
-           </span>
+            <Radio
+             :value.sync="member.sex"
+             :kv_list="master_list.sex"
+             :radio_key="'sex'"
+            ></Radio>
         </li>
         <li>
             <span>
                 好きな野球チーム
             </span>
             <span>
-                <Select
+                <Radio
                 :value.sync="member.baseball_team"
                 :kv_list="master_list.baseball_team"
-                ></Select>
+                ></Radio>
             </span>
         </li>
         <li>
@@ -113,6 +109,7 @@
 import areaModal from "@/component/area/areaModal";
 import address_repository from "@/repository/address_repository";
 import Select from "@/component/Parts/Forms/Select";
+import Radio from "@/component/Parts/Forms/Radio";
 
 const add_repo = new address_repository();
 
@@ -120,7 +117,8 @@ export default {
   name: 'App',
   components:{
     areaModal,
-    Select
+    Select,
+    Radio
   },
   computed:{
       member: {
