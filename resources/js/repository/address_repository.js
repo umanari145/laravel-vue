@@ -1,5 +1,7 @@
 
 export default class address_repository{
+    //Promiseを内包しているのでreturn後に
+    //then〜catch〜finallyを使える
 
     constructor() {
 
@@ -7,45 +9,21 @@ export default class address_repository{
 
     async getPref() {
         let link = `/api/getPref`
-        return new Promise((resolve, reject) => {
-            axios.get(link).then((response) => {
-                resolve(response)
-            }).catch((error) => {
-                reject(error)
-            })
-        })
+        return axios.get(link);
     }
 
-    async searchCity(pref_cd) {
+    searchCity(pref_cd) {
         let link = `/api/getCity?pref_cd=${pref_cd}`
-        return new Promise((resolve, reject) => {
-            axios.get(link).then((response) => {
-                resolve(response)
-            }).catch((error) => {
-                reject(error)
-            })
-        })
+        return axios.get(link);
     }
 
-    async searchTown(pref_cd, city_cd) {
+    searchTown(pref_cd, city_cd) {
         let link = `/api/getTown?pref_cd=${pref_cd}&city_cd=${city_cd}`
-        return new Promise((resolve, reject) => {
-            axios.get(link).then((response) => {
-                resolve(response)
-            }).catch((error) => {
-                reject(error)
-            })
-        })
+        return axios.get(link);
     }
 
-    async getAddressByZip(zip) {
+    getAddressByZip(zip) {
         let link = `/api/getAddress?zip=${zip}`
-        return new Promise((resolve, reject) => {
-            axios.get(link).then(response => {
-                resolve(response);
-            }).catch((error) => {
-                reject(error);
-            })
-        })
+        return axios.get(link);
     }
 }

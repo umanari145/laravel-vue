@@ -181,12 +181,6 @@ export default {
           })
 
      },
-     changeSuboccupation() {
-         let occupation = this.$store.getters["member/getMember"]["occupation"];
-         let sub_occupation = this.$store.getters["master/getMaster"]["sub_occupation"];
-         let sub_occupation_arr = sub_occupation[occupation];
-         this.$store.commit("master/setProp", {'prop':'selected_occupation', 'value':sub_occupation_arr});
-     },
      disp_member() {
         let member = this.$store.getters["member/getMember"];
         console.log(member)

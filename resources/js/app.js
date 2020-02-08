@@ -19,7 +19,6 @@ Vue.component('sidenavi', sidenavi)
 Vue.use(DrawerLayout)
 Vue.use(BootstrapVue)
 Vue.use(VModal)
-window.axios = axios
 import store from "@/store/index.js"
 
 window.Vue = Vue;
