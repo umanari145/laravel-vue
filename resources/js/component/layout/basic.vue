@@ -19,7 +19,7 @@
                 <router-view></router-view>
                 <a href="javascript:void(0)" class="btn"
                 @click="handleToggleDrawer" style="display:block;">ドロワーを出します</a>
-            </div>
+            </div>          
         </vue-drawer-layout>
     </div>
 </template>

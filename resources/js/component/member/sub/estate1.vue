@@ -41,11 +41,10 @@
                 職業
             </span>
             <span>
-                <select v-model="member.occupation" @change="changeSuboccupation">
-                    <option v-for="(label_str, value_str) in master_list.occupation" :value="value_str" >
-                        {{label_str}}
-                    </option>
-                </select>
+              <Select
+                :value.sync="member.occupation"
+                :kv_list="master_list.occupation"
+              ></Select>
             </span>
         </li>
         <li>
@@ -53,11 +52,10 @@
                 職業(その２)
             </span>
             <span>
-                <select v-model="member.sub_occupation" >
-                    <option v-for="(label_str, value_str) in master_list.selected_occupation" :value="value_str" >
-                        {{label_str}}
-                    </option>
-                </select>
+              <Select
+                :value.sync="member.sub_occupation"
+                :kv_list="master_list.sub_occupation[member.occupation]"
+              ></Select>
             </span>
         </li>
         <li>
@@ -136,11 +134,7 @@ export default {
       master_list:{
           get() {
               //連動型のプルダウン
-              let masters = this.$store.getters["master/getMaster"];
-              let occupation = this.$store.getters["member/getMember"]["occupation"];
-              masters.selected_occupation = masters.sub_occupation[occupation]
-
-              return masters
+              return this.$store.getters["master/getMaster"];
           }
       }
   },

@@ -92,7 +92,7 @@
 
 import address_repository from "@/repository/address_repository.js"
 
-const add_repo = new address_repository()
+const add_repo = new address_repository();
 
 export default {
     methods:{

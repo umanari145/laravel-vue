@@ -5,7 +5,6 @@
                 連絡手段
             </span>
             <span>
-                {{member.contact}}
                 <span  v-for="(label_str, value_str) in master_list.contact">
                     <input
                         type="radio"
@@ -45,6 +44,7 @@
             <span>
                 交通手段
             </span>
+
             <b-form-group>
                 <b-form-checkbox-group
                 label="Button-group style checkboxes"
