@@ -29,6 +29,7 @@
                 <Radio
                 :value.sync="member.baseball_team"
                 :kv_list="master_list.baseball_team"
+                :radio_key="'baseball'"
                 ></Radio>
             </span>
         </li>

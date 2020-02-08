@@ -5,15 +5,11 @@
                 連絡手段
             </span>
             <span>
-                <span  v-for="(label_str, value_str) in master_list.contact">
-                    <input
-                        type="radio"
-                        :id=" 'contact_' + value_str "
-                        :value="value_str"
-                        v-model="member.contact"
-                    >
-                <label :for="'contact_' + value_str">{{label_str}}</label>
-                </span>
+                <Radio
+                :value.sync="member.contact"
+                :kv_list="master_list.contact"
+                :radio_key="'contact'"
+                ></Radio>
             </span>
         </li>
         <li>
@@ -69,8 +65,13 @@
     </div>
 </template>
 <script>
+import Radio from "@/component/Parts/Forms/Radio";
+
 export default {
   name: 'App',
+  components:{
+    Radio
+  },
   computed:{
       member: {
           get() {
