@@ -18,7 +18,7 @@
             <Radio
              :value.sync="member.sex"
              :kv_list="master_list.sex"
-             :radio_key="'sex'"
+             radio_key="sex"
             ></Radio>
         </li>
         <li>
@@ -29,7 +29,7 @@
                 <Radio
                 :value.sync="member.baseball_team"
                 :kv_list="master_list.baseball_team"
-                :radio_key="'baseball'"
+                radio_key="baseball"
                 ></Radio>
             </span>
         </li>

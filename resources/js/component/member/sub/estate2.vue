@@ -40,19 +40,12 @@
             <span>
                 交通手段
             </span>
-
-            <b-form-group>
-                <b-form-checkbox-group
-                label="Button-group style checkboxes"
-                v-model="member.traffic"
-                :options="master_list.traffic"
-                buttons
-                button-variant="outline-primary"
-                size="md"
-                name="buttons-2"
-                >
-                </b-form-checkbox-group>
-            </b-form-group>
+            <CheckBox
+              checkbox_key="traffic"
+              :kv_list="master_list.traffic"
+              :value.sync="member.traffic"
+            >
+            </CheckBox>
         </li>
         <li>
             <span>
@@ -66,11 +59,13 @@
 </template>
 <script>
 import Radio from "@/component/Parts/Forms/Radio";
+import CheckBox from "@/component/Parts/Forms/CheckBox";
 
 export default {
   name: 'App',
   components:{
-    Radio
+    Radio,
+    CheckBox
   },
   computed:{
       member: {
