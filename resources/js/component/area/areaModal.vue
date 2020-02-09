@@ -120,7 +120,7 @@ export default {
                if (response.data !== undefined) {
                    this.cities = response.data
                    this.fullcities = response.data
-                   this.is_pref_active = true
+                   this.is_pref_active = false;
                    this.is_pref_disabled = true
                    this.is_town_active = true
                    this.is_town_disabled = false
@@ -197,7 +197,6 @@ export default {
            this.filter_city = ''
            this.filter_town = ''
            this.selectedAddress = null
-
        }
     },
     created() {
