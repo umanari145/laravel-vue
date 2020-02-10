@@ -95,8 +95,16 @@ import address_repository from "@/repository/address_repository.js"
 const add_repo = new address_repository();
 
 export default {
+    props:{
+        address_type:{
+          type:String,
+          required:true
+        },
+    },
     methods:{
         getPref(){
+            alert(this.address_type)
+            this.setAddressKey();
             add_repo.getPref().
             then((response) => {
                 if (response !== undefined ){
@@ -112,18 +120,34 @@ export default {
                 this.is_show_spinner = 0;
             })
         },
+        setAddressKey() {
+          switch (this.address_type) {
+            case 'live':
+                this.zip_key = 'zip';
+                this.address1_key = 'address1';
+                this.address2_key = 'address2';
+              break;
+            case 'delivery':
+                this.zip_key = 'delivery_zip';
+                this.address1_key = 'delivery_address1';
+                this.address2_key = 'delivery_address2';
+              break;
+            default:
+              break;
+          }
+        },
        searchCity() {
            this.is_show_spinner = 1;
            let pref_cd = this.selectedPref
            add_repo.searchCity(pref_cd).
            then((response) => {
                if (response.data !== undefined) {
-                   this.cities = response.data
-                   this.fullcities = response.data
                    this.is_pref_active = false;
                    this.is_pref_disabled = true
                    this.is_town_active = true
                    this.is_town_disabled = false
+                   this.cities = response.data
+                   this.fullcities = response.data
                } else {
                    alert("市区町村が存在しません。")
                }
@@ -147,12 +171,12 @@ export default {
            add_repo.searchTown(pref_cd, city_cd).
            then((response) => {
                if (response.data !== undefined) {
-                   this.towns= response.data
-                   this.fulltowns = response.data
                    this.is_town_active = false
                    this.is_town_disabled = true
                    this.is_choson_active = true
                    this.is_choson_disabled = false
+                   this.towns= response.data
+                   this.fulltowns = response.data
                } else {
                    alert("市区町村が存在しません。")
                }
@@ -170,12 +194,12 @@ export default {
          })
        },
        setAddress() {
-          this.$store.commit("member/setProp", { 'prop': 'zip' , 'value' : ''});
-          this.$store.commit("member/setProp", { 'prop': 'address1' , 'value' : ''});
-          this.$store.commit("member/setProp", { 'prop': 'address2' , 'value' : ''});
+          this.$store.commit("member/setProp", { 'prop': this.zip_key , 'value' : ''});
+          this.$store.commit("member/setProp", { 'prop': this.address1_key , 'value' : ''});
+          this.$store.commit("member/setProp", { 'prop': this.address2_key , 'value' : ''});
 
-          this.$store.commit("member/setProp", { 'prop': 'zip' , 'value' : this.selectedAddress.zip});
-          this.$store.commit("member/setProp", { 'prop': 'address1' , 'value' : this.selectedAddress.full_address});
+          this.$store.commit("member/setProp", { 'prop': this.zip_key , 'value' : this.selectedAddress.zip});
+          this.$store.commit("member/setProp", { 'prop': this.address1_key , 'value' : this.selectedAddress.full_address});
           this.$modal.hide('areaModal')
           this.modal_init()
        },
@@ -220,7 +244,10 @@ export default {
             fulltowns:[],
             filter_city:'',
             filter_town:'',
-            selectedAddress:null
+            selectedAddress:null,
+            zip_key:'',
+            address1_key: '',
+            address2_key: ''
         }
     }
 }

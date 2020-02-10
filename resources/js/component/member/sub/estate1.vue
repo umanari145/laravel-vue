@@ -71,7 +71,7 @@
             <span>
                 <input type="text" v-model="member.zip">
                 <b-button variant="info" @click="supportAddress(member.zip, 'live')"  v-b-tooltip.hover title="郵便番号から住所検索ができます。">検索</b-button>
-                <b-button variant="info" @click="$modal.show('areaModal')">入力補助</b-button>
+                <b-button variant="info" @click="bootModal('live')">入力補助</b-button>
             </span>
         </li>
         <li>
@@ -99,7 +99,7 @@
             <span>
                 <input type="text" v-model="member.delivery_zip">
                 <b-button variant="info" @click="supportAddress(member.delivery_zip, 'delivery')"  v-b-tooltip.hover title="郵便番号から住所検索ができます。">検索</b-button>
-                <b-button variant="info" @click="$modal.show('areaModal')">入力補助</b-button>
+                <b-button variant="info" @click="bootModal('delivery')">入力補助</b-button>
             </span>
         </li>
         <li>
@@ -133,7 +133,7 @@
               <img :src="disp_image" style="width:300px;height:500px;">
             </div>
         </li>
-        <areaModal></areaModal>
+        <areaModal :address_type="address_type"></areaModal>
     </div>
 </template>
 <script>
@@ -188,7 +188,11 @@ export default {
           this.disp_image = ""
           this.input_file = ""
       },
-
+      bootModal(address_type) {
+        alert(address_type)
+        this.$set(this, 'address_type', address_type);
+        this.$modal.show('areaModal');
+      },
       supportAddress(zip, address_key) {
           this.$store.commit("loading/setIsLoading", 1);
           let address1_key = '';
@@ -237,8 +241,9 @@ export default {
   },
   data() {
     return {
-        input_file:null,
-        disp_image:""
+      address_type:'',
+      input_file:null,
+      disp_image:""
     }
   },
 }
