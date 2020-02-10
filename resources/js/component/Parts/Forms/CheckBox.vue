@@ -15,7 +15,7 @@
 <script>
 export default {
     props:{
-        checkbox_key:{
+          checkbox_key:{
           type:String,
           required:true
         },

@@ -63,13 +63,14 @@
                 <input type="text" v-model="member.birtdh_day">
             </span>
         </li>
+
         <li>
             <span>
                 郵便番号
             </span>
             <span>
                 <input type="text" v-model="member.zip">
-                <b-button variant="info" @click="supportAddress(member.zip)"  v-b-tooltip.hover title="郵便番号から住所検索ができます。">検索</b-button>
+                <b-button variant="info" @click="supportAddress(member.zip, 'live')"  v-b-tooltip.hover title="郵便番号から住所検索ができます。">検索</b-button>
                 <b-button variant="info" @click="$modal.show('areaModal')">入力補助</b-button>
             </span>
         </li>
@@ -89,6 +90,35 @@
                 <input type="text" v-model="member.address2">
             </span>
         </li>
+
+        <!--配送先-->
+        <li>
+            <span>
+                配送先郵便番号
+            </span>
+            <span>
+                <input type="text" v-model="member.delivery_zip">
+                <b-button variant="info" @click="supportAddress(member.delivery_zip, 'delivery')"  v-b-tooltip.hover title="郵便番号から住所検索ができます。">検索</b-button>
+                <b-button variant="info" @click="$modal.show('areaModal')">入力補助</b-button>
+            </span>
+        </li>
+        <li>
+            <span>
+                配送先住所1
+            </span>
+            <span>
+                <input type="text" v-model="member.delivery_address1">
+            </span>
+        </li>
+        <li>
+            <span>
+                配送先住所2
+            </span>
+            <span>
+                <input type="text" v-model="member.delivery_address2">
+            </span>
+        </li>
+
         <li style="width:300px;">
             <b-form-file
                 v-model="input_file"
@@ -159,16 +189,30 @@ export default {
           this.input_file = ""
       },
 
-      supportAddress(zip) {
+      supportAddress(zip, address_key) {
           this.$store.commit("loading/setIsLoading", 1);
+          let address1_key = '';
+          let address2_key = '';
+          switch (address_key) {
+            case 'live':
+                address1_key = 'address1';
+                address2_key = 'address2';
+              break;
+            case 'delivery':
+              address1_key = 'delivery_address1';
+              address2_key = 'delivery_address2';
+              break;
+            default:
+              break;
+          }
 
-          this.$store.commit("member/setProp", { 'prop': 'address1' , 'value' : ''});
-          this.$store.commit("member/setProp", { 'prop': 'address2' , 'value' : ''});
+          this.$store.commit("member/setProp", { 'prop': address1_key , 'value' : ''});
+          this.$store.commit("member/setProp", { 'prop': address2_key , 'value' : ''});
 
           add_repo.getAddressByZip(zip)
           .then((response) => {
             if (response.data.full_address !== undefined) {
-               this.$store.commit("member/setProp", { 'prop': 'address1' , 'value' : response.data.full_address});
+               this.$store.commit("member/setProp", { 'prop': address1_key , 'value' : response.data.full_address});
             } else {
               alert("住所が存在しません。");
             }
