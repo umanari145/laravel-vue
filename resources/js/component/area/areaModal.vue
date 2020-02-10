@@ -95,15 +95,8 @@ import address_repository from "@/repository/address_repository.js"
 const add_repo = new address_repository();
 
 export default {
-    props:{
-        address_type:{
-          type:String,
-          required:true
-        },
-    },
     methods:{
         getPref(){
-            alert(this.address_type)
             this.setAddressKey();
             add_repo.getPref().
             then((response) => {
@@ -121,7 +114,7 @@ export default {
             })
         },
         setAddressKey() {
-          switch (this.address_type) {
+          switch (this.$parent.address_type) {
             case 'live':
                 this.zip_key = 'zip';
                 this.address1_key = 'address1';

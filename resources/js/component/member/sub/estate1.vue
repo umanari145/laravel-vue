@@ -189,8 +189,7 @@ export default {
           this.input_file = ""
       },
       bootModal(address_type) {
-        alert(address_type)
-        this.$set(this, 'address_type', address_type);
+        this.address_type = address_type;
         this.$modal.show('areaModal');
       },
       supportAddress(zip, address_key) {
