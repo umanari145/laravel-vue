@@ -55,6 +55,13 @@
                 <textarea v-model="member.contents"></textarea>
             </span>
         </li>
+        <b-button variant="info" @click="addProduct">追加</b-button>
+        <ul>
+          <li v-for="(product, product_index) in member.products">
+            <input type="text" v-model="member.products[product_index]">
+            <b-button variant="info" @click="removeProduct(product_index)">削除</b-button>
+          </li>
+        </ul>
     </div>
 </template>
 <script>
@@ -83,7 +90,13 @@ export default {
       }
   },
   methods:{
-
+    addProduct(){
+      let product = '';
+      this.member.products.push(product);
+    },
+    removeProduct(product_index) {
+      this.member.products.splice(product_index,1);
+    }
   },
   watch:{
       'member.contact':function(val){

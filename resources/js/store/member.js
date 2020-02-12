@@ -21,7 +21,8 @@ const member = {
             'email':'',
             'tel':'',
             'traffic':[],
-            'contents':''
+            'contents':'',
+            'products': []
         }
     },
     getters:{

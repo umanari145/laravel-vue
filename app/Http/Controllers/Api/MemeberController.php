@@ -39,6 +39,10 @@ class MemberController extends Controller
         $member = Persons::find($memberId);
         $member->traffic = (!empty($member->traffic)) ? json_decode($member->traffic):[];
 
+        $member->products = [
+            'aaaa','bbbb','ccc'
+        ];
+
         return response()->json([
             'res' => true,
             'member' => $member
