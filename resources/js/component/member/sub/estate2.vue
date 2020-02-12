@@ -57,9 +57,15 @@
         </li>
         <b-button variant="info" @click="addProduct">追加</b-button>
         <ul>
-          <li v-for="(product, product_index) in member.products">
+          <li v-for="(product, product_index) in member.products" style="display:flex;justify-content:flex-start">
             <!--v-model=productはダメ(反映と連動があり、連動ができない)-->
             <!--:value=productはOK(反映のみならできる)-->
+            <span>
+              <Select
+                :value.sync="member.products[product_index].category"
+                :kv_list="master_list.category"
+              ></Select>
+            </span>
             <input type="text" v-model="member.products[product_index].name">
             <input type="text" v-model="member.products[product_index].price">
             <b-button variant="info" @click="removeProduct(product_index)" v-if="member.products.length > 1">削除</b-button>
@@ -68,12 +74,14 @@
     </div>
 </template>
 <script>
+import Select from "@/component/Parts/Forms/Select";
 import Radio from "@/component/Parts/Forms/Radio";
 import CheckBox from "@/component/Parts/Forms/CheckBox";
 
 export default {
   name: 'App',
   components:{
+    Select,
     Radio,
     CheckBox
   },
@@ -96,6 +104,7 @@ export default {
     addProduct(){
       let product = {
         name:'',
+        category:'',
         price:''
       };
       this.member.products.push(product);

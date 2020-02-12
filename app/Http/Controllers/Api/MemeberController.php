@@ -42,10 +42,12 @@ class MemberController extends Controller
         $member->products = [
             [
                 'name'=> 'aaa',
+                'category'=> '1',
                 'price'=> '1000'
             ],
             [
                 'name'=> 'bbb',
+                'category'=> '2',
                 'price'=> '2000'
             ],
         ];

@@ -7,6 +7,7 @@ const master = {
             'selected_occupation':'',
             'traffic_list':'',
             'baseball_team_list':'',
+            'category_list':''
         }
     },
     getters:{
@@ -32,12 +33,15 @@ const master = {
                 },
             }
             let traffic_list = {"1":"徒歩", "2":"自転車", "3":"バス", "4":"電車", "5":"その他"}
+            let category_list = {"1":"食品", "2":"飲料", "3":"その他"}
+
             state.master.sex = sex_list
             state.master.occupation = occupation_list
             state.master.contact = contact_list
             state.master.sub_occupation = sub_occupation_list
             state.master.traffic = traffic_list
             state.master.baseball_team = baseball_team_list
+            state.master.category = category_list
 
             return state.master
         },
