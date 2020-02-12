@@ -58,7 +58,10 @@
         <b-button variant="info" @click="addProduct">追加</b-button>
         <ul>
           <li v-for="(product, product_index) in member.products">
-            <input type="text" v-model="member.products[product_index]">
+            <!--v-model=productはダメ(反映と連動があり、連動ができない)-->
+            <!--:value=productはOK(反映のみならできる)-->
+            <input type="text" v-model="member.products[product_index].name">
+            <input type="text" v-model="member.products[product_index].price">
             <b-button variant="info" @click="removeProduct(product_index)">削除</b-button>
           </li>
         </ul>
@@ -91,7 +94,10 @@ export default {
   },
   methods:{
     addProduct(){
-      let product = '';
+      let product = {
+        name:'',
+        price:''
+      };
       this.member.products.push(product);
     },
     removeProduct(product_index) {

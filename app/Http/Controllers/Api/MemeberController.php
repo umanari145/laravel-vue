@@ -40,7 +40,14 @@ class MemberController extends Controller
         $member->traffic = (!empty($member->traffic)) ? json_decode($member->traffic):[];
 
         $member->products = [
-            'aaaa','bbbb','ccc'
+            [
+                'name'=> 'aaa',
+                'price'=> '1000'
+            ],
+            [
+                'name'=> 'bbb',
+                'price'=> '2000'
+            ],
         ];
 
         return response()->json([
