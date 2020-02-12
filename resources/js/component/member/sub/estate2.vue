@@ -62,7 +62,7 @@
             <!--:value=productはOK(反映のみならできる)-->
             <input type="text" v-model="member.products[product_index].name">
             <input type="text" v-model="member.products[product_index].price">
-            <b-button variant="info" @click="removeProduct(product_index)">削除</b-button>
+            <b-button variant="info" @click="removeProduct(product_index)" v-if="member.products.length > 1">削除</b-button>
           </li>
         </ul>
     </div>
