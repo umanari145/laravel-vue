@@ -59,7 +59,7 @@
         <b-button variant="info" @click="addProduct">追加</b-button>
 
         <ul>
-          <li v-for="(product, product_index) in member.products">
+          <li v-for="(product, product_index) in member.products" style="display:flex;justify-content:flex-start;margin-bottom:10px;">
             <!--v-model=productはダメ(反映と連動があり、連動ができない)-->
             <!--:value=productはOK(反映のみならできる)-->
             <Product

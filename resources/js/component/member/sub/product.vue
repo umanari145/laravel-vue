@@ -1,13 +1,13 @@
 <template>
-    <div style="display:flex;justify-content:flex-start">
-      <span>
+    <div style="display:flex;align-items:center;">
+      <span style="margin-right:10px;">
         <Select
           :value.sync="inputCategory"
           :kv_list="category_list"
         ></Select>
       </span>
-      <input type="text" v-model="inputName">
-      <input type="text" v-model="inputPrice">
+      <input type="text" v-model="inputName" style="margin-right:10px;">
+      <input type="text" v-model="inputPrice" style="margin-right:10px;">
     </div>
 </template>
 
