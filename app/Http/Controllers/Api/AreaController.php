@@ -56,9 +56,11 @@ class AreaController extends Controller
         $address = Cache::get($cacheKey);
         if (!$address) {
             $address = PostCode::getAddress($zip);
-            $address->full_address = sprintf('%s%s%s', $address->pref, $address->city, $address->town);
-            $address->zip = sprintf('%07d', $address->zip);
-            Cache::store('file')->put($cacheKey, $address, 60);
+            if (!empty($address)) {
+                $address->full_address = sprintf('%s%s%s', $address->pref, $address->city, $address->town);
+                $address->zip = sprintf('%07d', $address->zip);
+                Cache::store('file')->put($cacheKey, $address, 60);
+            }
         }
         return response()->json($address, 200, [], JSON_UNESCAPED_UNICODE);
     }
