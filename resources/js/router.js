@@ -8,6 +8,8 @@ import list from "@/component/member/list.vue"
 Vue.use(VueRouter)
 
 const router = new VueRouter({
+    mode:'history',
+    hash: false,
     routes:[
         {
             path:'/',

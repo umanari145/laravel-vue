@@ -11,7 +11,7 @@
                 <span>{{member.email}}</span>
                 <span>{{member.created_at}}</span>
                 <span>
-                    <a :href=" '/#/edit/' + member.id">編集</a>
+                    <a :href=" '/edit/' + member.id">編集</a>
                 </span>
             </li>
         </ul>
