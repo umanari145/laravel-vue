@@ -20,7 +20,7 @@ export default {
           required:true
         },
         value:{
-            type:String,
+            type:[String,Array],
             required:true
         },
         kv_list:{
