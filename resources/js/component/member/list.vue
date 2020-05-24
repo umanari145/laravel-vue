@@ -3,6 +3,8 @@
         <div v-show="is_loading">
             <Loading></Loading>
         </div>
+        <div @click="$modal.show('searchModal')" style="margin-left:30px;">検索</div>
+        <searchModal></searchModal>
         <ul>
             <li v-for="(member,index) in members">
                 <span>{{member.id}}</span>
@@ -15,8 +17,6 @@
                 </span>
             </li>
         </ul>
-        <div @click="$modal.show('searchModal')">検索</div>
-        <searchModal></searchModal>
     </div>
 </template>
 <script>

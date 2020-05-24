@@ -2,21 +2,73 @@
     <div>
         <modal name="searchModal">
 
-            <label for="">メンバー名</label>
-            <input type="text" v-model="person_name" placeholder="山田　太郎">
+          <div style="margin-top:20px;margin-left:30px;">
+
+            <div class="">
+              <label for="">メンバー名</label>
+              <input type="text" v-model="person_name" placeholder="山田　太郎">
+            </div>
+
+            <div class="">
+              <label for="">性別</label>
+                <Radio
+                  :value.sync="sex"
+                  :kv_list="master_list.sex_list"
+                  radio_key="contact"
+                ></Radio>
+            </div>
+
+            <div class="">
+              <label for="">職業</label>
+              <Select
+                :value.sync="occupation"
+                :kv_list="master_list.occupation"
+              ></Select>
+            </div>
+
+            <div class="">
+              <label for="">交通手段</label>
+              <CheckBox
+                checkbox_key="traffic"
+                :kv_list="master_list.traffic"
+                :value.sync="traffic"
+              >
+              </CheckBox>
+            </div>
 
             <button @click="searchMememer()">検索</button>
+          </div>
         </modal>
     </div>
 </template>
 
 <script>
+import Select from "@/component/Parts/Forms/Select";
+import Radio from "@/component/Parts/Forms/Radio";
+import CheckBox from "@/component/Parts/Forms/CheckBox";
+
 export default {
+    name: 'App',
+    components: {
+      Select,
+      Radio,
+      CheckBox
+    },
+    computed:{
+      master_list:{
+          get() {
+              //連動型のプルダウン
+              return this.$store.getters["master/getMaster"];
+          }
+      }
+    },
     methods:{
         async searchMememer() {
 
             let search_params = {
-                'person_name':this.person_name
+                'person_name':this.person_name,
+                'sex':this.sex,
+                'occupation':this.occupation
             }
 
             let query_str = ''
@@ -52,7 +104,10 @@ export default {
     },
     data(){
       return {
-          person_name:''
+          person_name:'',
+          sex:'',
+          occupation:'',
+          traffic:[],
       }
     }
 }
