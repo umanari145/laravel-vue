@@ -254,22 +254,6 @@ export default {
 .inner_wrapper{
     margin: 10px;
 }
-.modal_wrapper{
-    position: relative;
-}
-
-.spininng_back{
-    opacity: 0.7;
-    background: #fff;
-    position: absolute;
-    z-index: 10;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 
 .button_wrapper{
     margin-top: 20px;

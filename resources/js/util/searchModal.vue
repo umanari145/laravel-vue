@@ -1,7 +1,10 @@
 <template>
     <div>
-        <modal name="searchModal">
-
+        <modal name="searchModal" class="modal_wrapper">
+          <div class="spininng_back" v-if="is_show_spinner == 1">
+              <b-spinner label="Spinning" type="grow">
+              </b-spinner>
+          </div>
           <div style="margin-top:20px;margin-left:30px;">
 
             <div class="">
@@ -13,8 +16,8 @@
               <label for="">性別</label>
                 <Radio
                   :value.sync="sex"
-                  :kv_list="master_list.sex_list"
-                  radio_key="contact"
+                  :kv_list="master_list.sex"
+                  radio_key="sex"
                 ></Radio>
             </div>
 
@@ -26,7 +29,7 @@
               ></Select>
             </div>
 
-            <div class="">
+            <div class="" style="margin-top:15px;">
               <label for="">交通手段</label>
               <CheckBox
                 checkbox_key="traffic"
@@ -68,24 +71,17 @@ export default {
             let search_params = {
                 'person_name':this.person_name,
                 'sex':this.sex,
-                'occupation':this.occupation
+                'occupation':this.occupation,
+                'traffic':this.traffic
             }
 
-            let query_str = ''
-            let query_arr = []
-            _.forEach(search_params, (query_value, query_name)=>{
-                if (query_value !== undefined && query_value !== '') {
-                    query_arr.push(`${query_name}=${query_value}`)
-                }
-            })
+            let link = `/api/member/list`
 
-            if (query_arr.length > 0) {
-                query_str = '?' + query_arr.join('&')
-            }
+            this.is_show_spinner = 1;
 
-            let link = `/api/member/list${query_str}`
-
-            return await axios.get(link).then((res)=> {
+            return await axios.get(link, {
+              params:search_params
+            }).then((res)=> {
                 if (res.status == 200) {
                     if (res.data.length > 0) {
                         this.$store.commit("members/setMembers", res.data);
@@ -99,11 +95,14 @@ export default {
             }).catch(error =>{
                 alert("データの取得に失敗しました。")
                 this.$modal.hide('searchModal')
+            }).finally(()=>{
+                this.is_show_spinner = 0;
             });
         }
     },
     data(){
       return {
+          is_show_spinner:0,
           person_name:'',
           sex:'',
           occupation:'',
