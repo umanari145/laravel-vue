@@ -20,8 +20,8 @@ export default {
           required:true
         },
         value:{
-            type:[String,Array],
-            required:true
+            type:[String,Array,Number],
+            required:false
         },
         kv_list:{
             type:Object

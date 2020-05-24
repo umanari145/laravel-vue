@@ -9,13 +9,13 @@
 
             <div class="">
               <label for="">メンバー名</label>
-              <input type="text" v-model="person_name" placeholder="山田　太郎">
+              <input type="text" v-model="search.person_name" placeholder="山田　太郎">
             </div>
 
             <div class="">
               <label for="">性別</label>
                 <Radio
-                  :value.sync="sex"
+                  :value.sync="search.sex"
                   :kv_list="master_list.sex"
                   radio_key="sex"
                 ></Radio>
@@ -24,7 +24,7 @@
             <div class="">
               <label for="">職業</label>
               <Select
-                :value.sync="occupation"
+                :value.sync="search.occupation"
                 :kv_list="master_list.occupation"
               ></Select>
             </div>
@@ -34,7 +34,7 @@
               <CheckBox
                 checkbox_key="traffic"
                 :kv_list="master_list.traffic"
-                :value.sync="traffic"
+                :value.sync="search.traffic"
               >
               </CheckBox>
             </div>
@@ -63,17 +63,20 @@ export default {
               //連動型のプルダウン
               return this.$store.getters["master/getMaster"];
           }
+      },
+      search:{
+          get() {
+              return this.$store.getters['search/getSearch'];
+          },
+  //        set(val) {
+  //            this.$store.commit("search/setSearh", val);
+  //        }
       }
     },
     methods:{
         async searchMememer() {
+            let search_params = this.$store.getters['search/getSearch'];
 
-            let search_params = {
-                'person_name':this.person_name,
-                'sex':this.sex,
-                'occupation':this.occupation,
-                'traffic':this.traffic
-            }
 
             let link = `/api/member/list`
 
@@ -96,7 +99,15 @@ export default {
                 alert("データの取得に失敗しました。")
                 this.$modal.hide('searchModal')
             }).finally(()=>{
-                this.is_show_spinner = 0;
+
+              //タグ
+              for(var search_key in search_params) {
+                  var val = search_params[search_key];
+                  this.$store.commit("searchTag/setSearchTag", { 'prop': search_key , 'value' : val});
+              }
+              this.$store.commit("searchTag/setShowTag", true);
+
+              this.is_show_spinner = 0;
             });
         }
     },

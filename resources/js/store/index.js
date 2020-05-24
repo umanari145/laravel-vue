@@ -4,6 +4,8 @@ import loading from './loading.js'
 import member from './member.js'
 import members from './members.js'
 import master from './master.js'
+import search from './search.js'
+import searchTag from './searchTag.js'
 
 Vue.use(Vuex);
 
@@ -12,7 +14,9 @@ const module = {
         loading,
         member,
         members,
-        master
+        master,
+        search,
+        searchTag
     }
 }
 

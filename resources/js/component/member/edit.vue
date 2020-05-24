@@ -35,6 +35,7 @@ export default {
       let params = {
         'member':member
       }
+
       axios.put(
           `/api/member/edit/${memberId}`,
           params

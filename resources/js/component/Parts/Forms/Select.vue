@@ -12,8 +12,7 @@
 export default {
     props:{
         value:{
-            type:String,
-            required:true
+            type:[String,Number]
         },
         kv_list:{
             type:Object
