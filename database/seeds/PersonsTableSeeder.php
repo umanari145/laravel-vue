@@ -6,6 +6,8 @@ use Faker\Factory as Faker;
 
 // 下記コマンドでこのファイルを作成
 //php artisan make:seeder PersonsTableSeeder
+
+//下記コマンドでデータ作成ができる
 //php artisan db:seed --class=PersonsTableSeeder
 class PersonsTableSeeder extends Seeder
 {

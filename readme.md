@@ -30,3 +30,10 @@ bladeのなかでvue変数を展開する場合は@{{city}}などと@をつけ�
 
 一覧画面 http://laravel-vue.local/#/ <br>
 新規登録 http://laravel-vue.local/#/regist
+
+## マイグレーション
+テーブル作成
+php artisan migrate
+
+データ入力
+php artisan db:seed
