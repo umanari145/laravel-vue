@@ -40,7 +40,6 @@ class MjuushoTableSeeder extends Seeder
             }
             $loopIndex++;
             $totalIndex++;
-            echo $totalIndex. "\n";
             if ($totalIndex === 100) {
                 break;
             }
@@ -57,6 +56,5 @@ class MjuushoTableSeeder extends Seeder
         $sql .= implode(',', $allPrepareSQlArr);
         $bindValue = collect($addresses)->flatten()->toArray();
         DB::insert($sql, $bindValue);
-        exit('aaa');
     }
 }
