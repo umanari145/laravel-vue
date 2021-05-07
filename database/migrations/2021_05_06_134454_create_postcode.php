@@ -16,7 +16,7 @@ class CreatePostcode extends Migration
         Schema::create('m_juusho', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('address_cd', 8)->default('')->nullable();
+            $table->string('address_cd', 20)->default('')->nullable();
             $table->string('zip', 7)->default('')->nullable();
             $table->tinyInteger('m_prefectures_id')->default(null)->nullable();
             $table->string('ken', 7)->default('')->nullable();
@@ -37,6 +37,6 @@ class CreatePostcode extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('postcode');
+        Schema::dropIfExists('m_juusho');
     }
 }
