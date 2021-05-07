@@ -30,12 +30,20 @@ class Mjuusho extends Model
 
     public static function getTownList($prefCd, $cityCd)
     {
-        $townList = self::select(DB::raw("zipcode as zip, ken, shikuchouson, ooaza, CONCAT(ken, shikuchouson, ooaza) as full_address ,CONCAT(shikuchouson_cd,'-', ooaza_cd) as aza_cd"))
+        $townList = self::select(DB::raw("zip, ken, shikuchouson, ooaza, CONCAT(ken, shikuchouson, ooaza) as full_address ,CONCAT(shikuchouson_cd,'-', ooaza_cd) as aza_cd"))
                     ->distinct()
                     ->where('m_prefectures_id', $prefCd)
                     ->where('shikuchouson_cd', $cityCd)
                     ->get();
 
         return $townList;
+    }
+
+    public static function getAddress($zip)
+    {
+        $address = self::where('zip', $zip)
+                    ->first();
+
+        return $address;
     }
 }

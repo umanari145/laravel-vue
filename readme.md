@@ -37,3 +37,18 @@ php artisan migrate
 
 データ入力
 php artisan db:seed
+
+
+### APIテスト
+
+#都道府県リスト
+curl http://localhost:8080/api/getPref 
+
+#千葉県の一覧リスト
+curl http://localhost:8080/api/getCity?pref_cd=12
+
+＃千葉県船橋市のリスト
+curl http://localhost:8080/api/getTown?pref_cd=12&&city_cd=12204
+
+#郵便番号での検索
+curl http://localhost:8080/api/getAddress?zip=2740077

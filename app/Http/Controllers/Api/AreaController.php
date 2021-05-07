@@ -38,6 +38,7 @@ class AreaController extends Controller
     {
         $prefCd = $request->input('pref_cd');
         $cityCd = $request->input('city_cd');
+
         $cacheKey = sprintf('townList_%s_%s', $prefCd, $cityCd);
         $townList = Cache::get($cacheKey);
 
@@ -55,9 +56,9 @@ class AreaController extends Controller
         $cacheKey = sprintf('zip_%s', $zip);
         $address = Cache::get($cacheKey);
         if (!$address) {
-            $address = PostCode::getAddress($zip);
+            $address = Mjuusho::getAddress($zip);
             if (!empty($address)) {
-                $address->full_address = sprintf('%s%s%s', $address->pref, $address->city, $address->town);
+                $address->full_address = sprintf('%s%s%s', $address->ken, $address->city, $address->ooaza);
                 $address->zip = sprintf('%07d', $address->zip);
                 Cache::store('file')->put($cacheKey, $address, 60);
             }
