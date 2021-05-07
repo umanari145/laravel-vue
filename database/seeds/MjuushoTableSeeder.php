@@ -20,6 +20,11 @@ class MjuushoTableSeeder extends Seeder
         $addresses = [];
         while ($res = fgetcsv($fp)) {
             if ($loopIndex >= 1) {
+
+                if ($res[5] == '1') {
+                    continue;
+                }
+ 
                 $addresses[] = [
                     $res[0],
                     str_replace('-', '', $res[4]),
@@ -32,7 +37,7 @@ class MjuushoTableSeeder extends Seeder
                     $res[15]
                 ];
             }
-            if ($loopIndex == 10) {
+            if ($loopIndex == env('BULK_TEST_DATE_LOT')) {
                 $this->addressInsert($addresses);
                 $loopIndex = 1;
                 $addresses = [];
@@ -40,7 +45,7 @@ class MjuushoTableSeeder extends Seeder
             }
             $loopIndex++;
             $totalIndex++;
-            if ($totalIndex === 100) {
+            if (env('IS_MIGRATION_TEST') && $totalIndex === 100) {
                 break;
             }
         }
